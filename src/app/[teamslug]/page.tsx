@@ -12,7 +12,7 @@ export default async function Team({ params }: Props) {
   const { teamslug } = await params;
 
   const team = await prisma.team.findFirst({
-    where: { name: teamslug },
+    where: { slug: teamslug },
     include: {
       apps: true,
     },

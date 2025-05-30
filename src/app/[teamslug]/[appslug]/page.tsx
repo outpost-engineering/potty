@@ -15,7 +15,7 @@ export default async function App({ params }: Props) {
     where: {
       name: appslug,
       team: {
-        name: teamslug,
+        slug: teamslug,
       },
     },
     include: {
