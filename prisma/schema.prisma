@@ -81,51 +81,65 @@ model Authenticator {
 }
 
 model Team {
-  id          String  @id
-  name        String  @unique
-  description String
-  phone       String
-  picture     String?
-  website     String?
-  location    String
+    id          String  @id @default(cuid())
+    name        String  @unique
+    description String?
+    picture     String?
+    website     String?
+    location    String?
 
-  memberships Membership[]
-  invitations Invitation[]
+    memberships Membership[]
+    invitations Invitation[]
+
+    apps App[]
+}
+
+model App {
+    id          String  @id @default(cuid())
+    tid         String
+    name        String
+    description String?
+    picture     String?
+    website     String?
+
+    team Team @relation(fields: [tid], references: [id], onDelete: Cascade)
+
+    @@unique([tid, name])
 }
 
 model Membership {
-  uid  String
-  tid  String
-  role Role
+    uid  String
+    tid  String
+    role Role
 
-  user User @relation(fields: [uid], references: [id])
-  team Team @relation(fields: [tid], references: [id])
+    user User @relation(fields: [uid], references: [id])
+    team Team @relation(fields: [tid], references: [id])
 
-  @@id([uid, tid])
+    @@id([uid, tid])
 }
 
 model Invitation {
-  id      String           @id @default(uuid())
-  uid     String
-  tid     String
-  role    Role
-  code    String
-  status  InvitationStatus @default(Pending)
-  created DateTime         @default(now())
-  expires DateTime
+    id      String           @id @default(uuid())
+    uid     String
+    tid     String
+    role    Role
+    code    String
+    status  InvitationStatus @default(Pending)
+    created DateTime         @default(now())
+    expires DateTime
 
-  user User @relation(fields: [uid], references: [id])
-  team Team @relation(fields: [tid], references: [id])
+    user User @relation(fields: [uid], references: [id])
+    team Team @relation(fields: [tid], references: [id])
 }
 
 enum Role {
-  Owner
-  Admin
-  Member
+    Owner
+    Admin
+    Member
 }
 
 enum InvitationStatus {
-  Pending
-  Accepted
-  Revoked
+    Pending
+    Accepted
+    Revoked
 }
