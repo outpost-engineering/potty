@@ -8,7 +8,7 @@ interface Props {
   };
 }
 
-export default async function TeamPage({ params }: Props) {
+export default async function Team({ params }: Props) {
   const { teamslug } = await params;
 
   const team = await prisma.team.findFirst({
