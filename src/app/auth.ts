@@ -5,6 +5,9 @@ import { prisma } from "@/app/prisma";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     Github({
       clientId: process.env.AUTH_GITHUB_ID!,
