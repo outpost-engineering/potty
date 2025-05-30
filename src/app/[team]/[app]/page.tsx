@@ -3,19 +3,19 @@ import { notFound } from "next/navigation";
 
 interface Props {
   params: {
-    teamslug: string;
-    appslug: string;
+    team: string;
+    app: string;
   };
 }
 
-export default async function App({ params }: Props) {
-  const { teamslug, appslug } = await params;
+export default async function App(props: Props) {
+  const params = await props.params;
 
   const app = await prisma.app.findFirst({
     where: {
-      name: appslug,
+      name: params.app,
       team: {
-        slug: teamslug,
+        slug: params.team,
       },
     },
     include: {
@@ -29,7 +29,6 @@ export default async function App({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-12">
-      {/* App Header */}
       <header className="mb-8 text-center">
         <h1 className="mb-2 text-4xl font-extrabold text-gray-900">
           {app.name}
@@ -39,7 +38,6 @@ export default async function App({ params }: Props) {
         </p>
       </header>
 
-      {/* Logo */}
       {app.picture && (
         <div className="mb-8 flex justify-center">
           <img
@@ -50,7 +48,6 @@ export default async function App({ params }: Props) {
         </div>
       )}
 
-      {/* Website Link */}
       {app.website && (
         <p className="mb-8 text-center">
           <a
@@ -66,7 +63,6 @@ export default async function App({ params }: Props) {
 
       <hr className="my-12 border-gray-200" />
 
-      {/* Company Info */}
       <section>
         <h2 className="mb-4 text-2xl font-semibold text-gray-800">Company</h2>
         <div className="space-y-2">

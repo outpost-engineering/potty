@@ -4,15 +4,15 @@ import { prisma } from "../prisma";
 
 interface Props {
   params: {
-    teamslug: string;
+    team: string;
   };
 }
 
-export default async function Team({ params }: Props) {
-  const { teamslug } = await params;
+export default async function Team(props: Props) {
+  const params = await props.params;
 
   const team = await prisma.team.findFirst({
-    where: { slug: teamslug },
+    where: { slug: params.team },
     include: {
       apps: true,
     },
@@ -24,7 +24,6 @@ export default async function Team({ params }: Props) {
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-12">
-      {/* Team Header */}
       <header className="mb-12 text-center">
         <h1 className="mb-2 text-4xl font-extrabold text-gray-900">
           {team.name}
@@ -34,7 +33,6 @@ export default async function Team({ params }: Props) {
         )}
       </header>
 
-      {/* Team Picture & Website */}
       <div className="mb-12 flex flex-col items-center space-y-4">
         {team.picture && (
           <img
@@ -57,7 +55,6 @@ export default async function Team({ params }: Props) {
 
       <hr className="my-12 border-gray-200" />
 
-      {/* Apps Grid */}
       <section>
         <h2 className="mb-6 text-2xl font-semibold text-gray-800">
           Apps by {team.name}
@@ -69,7 +66,7 @@ export default async function Team({ params }: Props) {
             {team.apps.map((app) => (
               <Link
                 key={app.id}
-                href={`/${teamslug}/${app.name}`}
+                href={`${team.slug}/${app.name}`}
                 className="block rounded-lg border p-6 transition-shadow hover:shadow-lg"
               >
                 {app.picture && (
