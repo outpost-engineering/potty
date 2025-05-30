@@ -19,6 +19,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       name: "potty.callback-url",
     },
   },
+  callbacks: {
+    session: ({ session, token, user }) => ({
+      ...session,
+      user: {
+        ...user,
+        id: token.sub!,
+      },
+    }),
+  },
   providers: [
     Github({
       clientId: process.env.AUTH_GITHUB_ID!,

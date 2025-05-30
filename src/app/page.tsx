@@ -1,12 +1,16 @@
-import { auth } from "@/app/auth";
-import { redirect } from "next/navigation";
+export const runtime = 'nodejs';
 
-export default async function Home() {
+import React from 'react';
+import { auth } from '@/app/auth';
+import { redirect } from 'next/navigation';
+import CreateTeamForm from '@/CreateTeamForm';
+
+export default async function CreateTeamPage() {
   const session = await auth();
-
+  console.log(session?.user)
   if (!session?.user) {
-    redirect("/login");
+    redirect('/login');
   }
 
-  return <main>{JSON.stringify(session)}</main>;
+  return <CreateTeamForm userId={session.user.id!} />;
 }
