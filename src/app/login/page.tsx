@@ -9,18 +9,18 @@ export default async function Login() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-background text-foreground">
+    <main className="bg-background text-foreground flex min-h-screen items-center justify-center">
       <form
         action={async () => {
           "use server";
           await signIn("github", { redirectTo: "/" });
         }}
-        className="p-8 rounded-2xl shadow-lg space-y-4"
+        className="space-y-4 rounded-2xl p-8 shadow-lg"
       >
-        <h1 className="text-2xl font-bold text-center">Sign in</h1>
+        <h1 className="text-center text-2xl font-bold">Sign in</h1>
         <button
           type="submit"
-          className="w-full bg-gray-700 text-white px-5 py-2 rounded-lg hover:bg-gray-800 transition"
+          className="w-full rounded-lg bg-gray-700 px-5 py-2 text-white transition hover:bg-gray-800"
         >
           Sign in with GitHub
         </button>
