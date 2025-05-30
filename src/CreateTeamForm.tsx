@@ -45,7 +45,7 @@ export default function CreateTeamForm({ userId }: CreateTeamFormProps) {
     });
 
     if (res.ok) {
-      router.push('/teams');
+      console.log("Team Successfully Created")
     } else {
       console.error('Failed to create team', await res.text());
     }
