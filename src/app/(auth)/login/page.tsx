@@ -1,4 +1,13 @@
-export default function Login() {
+import { getSession } from "@/utils/jwt";
+import { redirect } from "next/navigation";
+
+export default async function Login() {
+  const session = await getSession();
+
+  if (session) {
+    redirect("/");
+  }
+
   return (
     <main className="bg-background text-foreground flex min-h-screen items-center justify-center">
       <div className="space-y-4 rounded-2xl p-8 shadow-lg">

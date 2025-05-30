@@ -1,10 +1,14 @@
-// import React from 'react';
-// import { auth } from '@/app/auth';
-// import { redirect } from 'next/navigation';
-// import CreateTeamForm from '@/CreateTeamForm';
+import { getSession } from "@/utils/jwt";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  return <main></main>;
+  const session = await getSession();
+
+  if (!session) {
+    redirect("/login");
+  }
+
+  return <main>{JSON.stringify(session)}</main>;
   // const session = await auth();
   // console.log(session?.user)
   // if (!session?.user) {
