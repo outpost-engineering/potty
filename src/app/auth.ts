@@ -8,6 +8,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: {
     strategy: "jwt",
   },
+  cookies: {
+    csrfToken: {
+      name: "potty.csrf-token",
+    },
+    sessionToken: {
+      name: "potty.session-token",
+    },
+    callbackUrl: {
+      name: "potty.callback-url",
+    },
+  },
   providers: [
     Github({
       clientId: process.env.AUTH_GITHUB_ID!,

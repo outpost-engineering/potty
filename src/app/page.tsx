@@ -1,10 +1,11 @@
-import { auth, signIn } from "@/app/auth";
+import { auth } from "@/app/auth";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const session = await auth();
 
   if (!session?.user) {
-    await signIn("github", { redirectTo: "/" });
+    redirect("/login");
   }
 
   return <main>{JSON.stringify(session)}</main>;
