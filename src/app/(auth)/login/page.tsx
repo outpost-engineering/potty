@@ -1,10 +1,10 @@
-import { AppleIcon } from "@/common/icons/apple";
-import { GithubIcon } from "@/common/icons/github";
-import { GoogleIcon } from "@/common/icons/google";
-import { LoginButton } from "@/common/login-button";
-import { MicrosoftIcon } from "@/common/icons/microsoft";
-import { getSession } from "@/utils/jwt";
 import { redirect } from "next/navigation";
+import { AppleIcon } from "~/common/icons/apple";
+import { GithubIcon } from "~/common/icons/github";
+import { GoogleIcon } from "~/common/icons/google";
+import { MicrosoftIcon } from "~/common/icons/microsoft";
+import { LoginButton } from "~/common/login-button";
+import { getSession } from "~/utils/jwt";
 
 export default async function Login() {
   const session = await getSession();

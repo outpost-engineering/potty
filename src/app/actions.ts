@@ -1,9 +1,9 @@
 "use server";
 
-import { prisma } from "@/app/prisma";
-import { getSession } from "@/utils/jwt";
 import { nanoid } from "nanoid";
 import { redirect } from "next/navigation";
+import { prisma } from "~/app/prisma";
+import { getSession } from "~/utils/jwt";
 
 export async function createTeam(formData: FormData) {
   const session = await getSession();

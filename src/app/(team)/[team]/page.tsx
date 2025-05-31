@@ -1,6 +1,6 @@
-import { notFound } from "next/navigation";
 import Link from "next/link";
-import { prisma } from "../prisma";
+import { notFound } from "next/navigation";
+import { prisma } from "~/app/prisma";
 
 interface Props {
   params: {

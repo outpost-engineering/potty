@@ -1,6 +1,6 @@
-import { PropsWithChildren } from "react";
 import { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { PropsWithChildren } from "react";
 
 import "./globals.css";
 

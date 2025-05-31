@@ -1,6 +1,6 @@
-import { getSession } from "@/utils/jwt";
 import { redirect } from "next/navigation";
 import { PropsWithChildren } from "react";
+import { getSession } from "~/utils/jwt";
 
 export default async function TeamLayout(props: PropsWithChildren) {
   const session = await getSession();

@@ -1,7 +1,7 @@
-import { prisma } from "@/app/prisma";
 import { createAccessToken } from "@/utils/jwt";
 import { nanoid } from "nanoid";
 import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "~/app/prisma";
 
 interface GithubProfile {
   name: string;

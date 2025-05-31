@@ -1,6 +1,6 @@
-import { getSession } from "@/utils/jwt";
 import { redirect } from "next/navigation";
-import { createTeam } from "@/app/actions";
+import { createTeam } from "~/app/actions";
+import { getSession } from "~/utils/jwt";
 
 export default async function CreateTeam() {
   const session = await getSession();
