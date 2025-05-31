@@ -1,8 +1,8 @@
-import { AppleIcon } from "@/common/apple-icon";
-import { GithubIcon } from "@/common/github-icon";
-import { GoogleIcon } from "@/common/google-icon";
+import { AppleIcon } from "@/common/icons/apple";
+import { GithubIcon } from "@/common/icons/github";
+import { GoogleIcon } from "@/common/icons/google";
 import { LoginButton } from "@/common/login-button";
-import { MicrosoftIcon } from "@/common/microsoft-icon";
+import { MicrosoftIcon } from "@/common/icons/microsoft";
 import { getSession } from "@/utils/jwt";
 import { redirect } from "next/navigation";
 
