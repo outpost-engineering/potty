@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "~/app/prisma";
-import { createAccessToken } from "~/utils/jwt";
+import { createSession } from "~/utils/session";
 
 interface GithubProfile {
   name: string;
@@ -94,6 +94,6 @@ export async function GET(req: NextRequest) {
     });
   }
 
-  await createAccessToken(user);
+  await createSession(user);
   return NextResponse.redirect(process.env.BASE_URL!);
 }

@@ -13,7 +13,7 @@ interface Session {
   user: User;
 }
 
-export async function createAccessToken(user: User) {
+export async function createSession(user: User) {
   const accessToken = await jwt.sign(
     {
       sub: user.id,

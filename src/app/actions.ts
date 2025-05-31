@@ -3,7 +3,7 @@
 import { nanoid } from "nanoid";
 import { redirect } from "next/navigation";
 import { prisma } from "~/app/prisma";
-import { getSession } from "~/utils/jwt";
+import { getSession } from "~/utils/session";
 
 export async function createTeam(formData: FormData) {
   const session = await getSession();
