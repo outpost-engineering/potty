@@ -2,7 +2,7 @@
 
 import { nanoid } from "nanoid";
 import { redirect } from "next/navigation";
-import { prisma } from "~/app/prisma";
+import { prisma } from "~/utils/prisma";
 import { getSession } from "~/utils/session";
 
 export async function createTeam(formData: FormData) {

@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "~/app/prisma";
+import { prisma } from "~/utils/prisma";
 import { createSession } from "~/utils/session";
 
 interface GithubProfile {

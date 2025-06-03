@@ -37,6 +37,11 @@ export async function createSession(user: User) {
   });
 }
 
+export async function clearSession() {
+  const cookieStore = await cookies();
+  cookieStore.delete("potty_access_token");
+}
+
 export async function getSession() {
   const cookieStore = await cookies();
   const token = cookieStore.get("potty_access_token")?.value;
