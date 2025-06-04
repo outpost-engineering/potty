@@ -1,25 +1,26 @@
 "use client";
 import { ReactNode, useRef } from "react";
+import { loginWith } from "~/app/(auth)/login/actions";
 import { Ripple, RippleRef } from "./animation/ripple";
 
 interface Props {
   icon: ReactNode;
   provider: string;
-  onClick: () => void;
+  redirect: string;
 }
 
 export function LoginButton(props: Props) {
-  const { icon, provider, onClick } = props;
+  const { icon, provider, redirect } = props;
   const rippleRef = useRef<RippleRef>(null);
 
-  const onClickWrapper = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     rippleRef.current?.addRipple(event);
-    onClick();
+    loginWith(provider, redirect);
   };
 
   return (
     <button
-      onClick={onClickWrapper}
+      onClick={onClick}
       className="border-accent-2 relative flex w-full cursor-pointer items-center justify-between overflow-hidden rounded-xl border-2 p-4 transition-all duration-150 ease-in active:scale-[99%]"
     >
       {icon}

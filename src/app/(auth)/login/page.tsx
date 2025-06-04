@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppleIcon } from "~/common/icons/apple";
@@ -20,42 +19,11 @@ interface Props {
 export default async function LoginPage(props: Props) {
   const session = await getSession();
   const search = await props.searchParams;
+  const redirectUrl = search.redirect ?? "/~";
 
   if (session) {
     redirect("/");
   }
-
-  const getRedirectUrl = (provider: string) => {
-    return `${process.env.BASE_URL}/api/auth/${provider}`;
-  };
-
-  const navigate = async (url: string) => {
-    "use server";
-    const cookieStore = await cookies();
-    await cookieStore.set("potty.redirect_uri", search.redirect ?? "/");
-
-    console.log(url);
-  };
-
-  const loginWithGithub = async () => {
-    "use server";
-    navigate("github");
-  };
-
-  const loginWithGoogle = async () => {
-    "use server";
-    navigate("google");
-  };
-
-  const loginWithMicrosoft = async () => {
-    "use server";
-    navigate("microsoft");
-  };
-
-  const loginWithApple = async () => {
-    "use server";
-    navigate("apple");
-  };
 
   return (
     <main className="flex min-h-screen items-center justify-center px-6">
@@ -66,33 +34,23 @@ export default async function LoginPage(props: Props) {
         <div className="mt-10 w-full space-y-2">
           <LoginButton
             provider="Github"
+            redirect={redirectUrl}
             icon={<GithubIcon className="size-6" />}
-            onClick={loginWithGithub}
-            // onClick={() =>
-            //   navigate(
-            //     `https://github.com/login/oauth/authorize?client_id=${process.env.AUTH_GITHUB_ID}&scope=read:user user:email&redirect_uri=${getRedirectUrl("github")}`,
-            //   )
-            // }
           />
           <LoginButton
             provider="Google"
+            redirect={redirectUrl}
             icon={<GoogleIcon className="size-6" />}
-            onClick={loginWithGoogle}
-            // onClick={() =>
-            //   navigate(
-            //     `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.AUTH_GOOGLE_ID}&response_type=code&scope=openid email profile&redirect_uri=${getRedirectUrl("google")}`,
-            //   )
-            // }
           />
           <LoginButton
             provider="Microsoft"
+            redirect={redirectUrl}
             icon={<MicrosoftIcon className="size-6" />}
-            onClick={loginWithMicrosoft}
           />
           <LoginButton
             provider="Apple"
+            redirect={redirectUrl}
             icon={<AppleIcon className="size-6" />}
-            onClick={loginWithApple}
           />
         </div>
         <div className="mt-8">

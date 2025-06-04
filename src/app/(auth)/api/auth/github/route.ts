@@ -17,7 +17,7 @@ interface GithubEmail {
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");
   const cookieStore = await cookies();
-  const redirect = cookieStore.get("potty.redirect_uri") ?? "/~";
+  const redirect = cookieStore.get("potty.redirect_uri")?.value ?? "/test";
   await cookieStore.delete("potty.redirect_uri");
 
   if (!code) {
@@ -99,5 +99,5 @@ export async function GET(req: NextRequest) {
   }
 
   await createSession(user);
-  return NextResponse.redirect(process.env.BASE_URL! + redirect);
+  return NextResponse.redirect(`${process.env.BASE_URL}/${redirect}`);
 }
