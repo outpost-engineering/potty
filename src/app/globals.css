@@ -1,14 +1,55 @@
 @import "tailwindcss";
 
-:root {
+[data-theme="dark"] {
   --background: #0a0a0a;
   --accent-1: #222222;
   --accent-2: #383838;
   --accent-3: #4c4c4c;
   --accent-4: #5e5e5e;
   --accent-5: #6e6e6e;
+  --accent-6: #878787;
   --foreground: #ffffff;
   --primary: #ff4070;
+}
+
+[data-theme="light"] {
+  --background: #fafafa;
+  --accent-1: #f2f2f2;
+  --accent-2: #ebebeb;
+  --accent-3: #e6e6e6;
+  --accent-4: #c9c9c9;
+  --accent-5: #a8a8a8;
+  --accent-6: #8f8f8f;
+  --foreground: #000;
+  --primary: #ff4070;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    --background: #0a0a0a;
+    --accent-1: #222222;
+    --accent-2: #383838;
+    --accent-3: #4c4c4c;
+    --accent-4: #5e5e5e;
+    --accent-5: #6e6e6e;
+    --accent-6: #878787;
+    --foreground: #ffffff;
+    --primary: #ff4070;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  [data-theme="system"] {
+    --background: #fafafa;
+    --accent-1: #f2f2f2;
+    --accent-2: #ebebeb;
+    --accent-3: #e6e6e6;
+    --accent-4: #c9c9c9;
+    --accent-5: #a8a8a8;
+    --accent-6: #8f8f8f;
+    --foreground: #000000;
+    --primary: #ff4070;
+  }
 }
 
 @theme inline {
@@ -18,6 +59,7 @@
   --color-accent-3: var(--accent-3);
   --color-accent-4: var(--accent-4);
   --color-accent-5: var(--accent-5);
+  --color-accent-6: var(--accent-6);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
 }

@@ -34,7 +34,7 @@ export default async function LoginPage(props: Props) {
       <div className="bg-accent-1 mb-24 flex w-full max-w-sm flex-col items-center justify-center rounded-3xl px-8 py-12">
         <PottyLogo className="w-28" />
         <h1 className="mt-6 text-xl font-semibold">Get ready!</h1>
-        <p className="text-accent-5 mt-2">One link to hear your users.</p>
+        <p className="text-accent-6 mt-2">One link to hear your users.</p>
         <div className="mt-10 w-full space-y-2">
           <LoginButton
             provider="Github"
@@ -58,18 +58,18 @@ export default async function LoginPage(props: Props) {
           />
         </div>
         <div className="mt-8">
-          <p className="text-accent-4 text-center text-sm">
+          <p className="text-accent-5 text-center text-sm">
             By clicking on continue, you agree to Potty&apos;s{" "}
             <Link
               href="/legal/terms-of-service"
-              className="text-accent-5 underline"
+              className="text-accent-6 underline"
             >
               Terms of Service
             </Link>{" "}
             and{" "}
             <Link
               href="/legal/privacy-policy"
-              className="text-accent-5 underline"
+              className="text-accent-6 underline"
             >
               Privacy Policy
             </Link>

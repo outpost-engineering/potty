@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { PropsWithChildren } from "react";
 
+import { getTheme } from "~/utils/theme";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,11 +15,14 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
-export default function RootLayout(props: PropsWithChildren) {
+export default async function RootLayout(props: PropsWithChildren) {
+  const theme = await getTheme();
+
   return (
     <html lang="en">
       <body
-        className="bg-background text-foreground antialiased"
+        className="bg-background text-foreground antialiased transition-colors duration-150 ease-in"
+        data-theme={theme}
         style={poppins.style}
       >
         {props.children}
