@@ -25,7 +25,8 @@ export default async function LoginPage(props: Props) {
   }
 
   const getRedirectUrl = (provider: string) => {
-    return `${process.env.BASE_URL}/api/auth/${provider}?redirect=${search.redirect}`;
+    const redirect_uri = search.redirect ?? "/";
+    return `${process.env.BASE_URL}/api/auth/${provider}?redirect=${redirect_uri}`;
   };
 
   return (
