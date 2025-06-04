@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "~/utils/prisma";
 import { createSession } from "~/utils/session";
@@ -15,7 +16,9 @@ interface GithubEmail {
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");
-  const redirect = req.nextUrl.searchParams.get("redirect") ?? "/~";
+  const cookieStore = await cookies();
+  const redirect = cookieStore.get("potty.redirect_uri") ?? "/~";
+  await cookieStore.delete("potty.redirect_uri");
 
   if (!code) {
     return NextResponse.json({ error: "Missing code" }, { status: 400 });
