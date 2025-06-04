@@ -15,6 +15,7 @@ interface GithubEmail {
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");
+  const redirect = req.nextUrl.searchParams.get("redirect") ?? "/~";
 
   if (!code) {
     return NextResponse.json({ error: "Missing code" }, { status: 400 });
@@ -95,5 +96,5 @@ export async function GET(req: NextRequest) {
   }
 
   await createSession(user);
-  return NextResponse.redirect(process.env.BASE_URL!);
+  return NextResponse.redirect(process.env.BASE_URL! + redirect);
 }
