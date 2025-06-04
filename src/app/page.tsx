@@ -1,11 +1,9 @@
-import { getSession } from "~/utils/session";
+import { Hero } from "~/common/marketing/hero";
 
 export default async function Home() {
-  const session = await getSession();
-
-  if (session) {
-    return <main>Logged in</main>;
-  }
-
-  return <main>Home</main>;
+  return (
+    <main className="container mx-auto max-w-7xl">
+      <Hero />
+    </main>
+  );
 }
