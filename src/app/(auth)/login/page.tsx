@@ -44,7 +44,7 @@ export default async function LoginPage(props: Props) {
           <LoginButton
             provider="Google"
             icon={<GoogleIcon className="size-6" />}
-            href={`https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.AUTH_GOOGLE_ID}&response_type=code&scope=${encodeURIComponent("openid email profile")}&redirect_uri=${encodeURIComponent(`${process.env.BASE_URL}/api/auth/google`)}`}
+            href={`https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.AUTH_GOOGLE_ID}&response_type=code&scope=openid email profile&redirect_uri=${getRedirectUrl("google")}`}
           />
           <LoginButton
             provider="Microsoft"
