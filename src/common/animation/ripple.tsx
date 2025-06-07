@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { forwardRef, useImperativeHandle, useState } from "react";
+import { cn } from "~/utils/shadcn";
 
 interface RippleInterface {
   id: number;
@@ -9,6 +10,7 @@ interface RippleInterface {
 }
 
 interface Props {
+  className?: string;
   duration?: number;
 }
 
@@ -48,7 +50,10 @@ export const Ripple = forwardRef<RippleRef, Props>((props, ref) => {
       {ripples.map((ripple) => (
         <motion.span
           key={ripple.id}
-          className="bg-foreground pointer-events-none absolute rounded-full"
+          className={cn(
+            "pointer-events-none absolute rounded-full",
+            props.className,
+          )}
           initial={{ scale: 0, opacity: 0.2 }}
           animate={{ scale: 2, opacity: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}

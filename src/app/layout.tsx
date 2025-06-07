@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { PropsWithChildren } from "react";
 
-import { getTheme } from "~/utils/theme";
+import { ThemeProvider } from "~/common/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,16 +16,20 @@ const poppins = Poppins({
 });
 
 export default async function RootLayout(props: PropsWithChildren) {
-  const theme = await getTheme();
-
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className="bg-background text-foreground antialiased transition-colors duration-150 ease-in"
-        data-theme={theme}
+        className="antialiased transition-colors duration-150 ease-in"
         style={poppins.style}
       >
-        {props.children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {props.children}
+        </ThemeProvider>
       </body>
     </html>
   );
