@@ -19,13 +19,12 @@ export default async function RootLayout(props: PropsWithChildren) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className="antialiased transition-colors duration-150 ease-in"
+        className="selection:bg-primary selection:text-primary-foreground antialiased transition-colors duration-150 ease-in"
         style={poppins.style}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          forcedTheme="dark"
           disableTransitionOnChange
         >
           {props.children}

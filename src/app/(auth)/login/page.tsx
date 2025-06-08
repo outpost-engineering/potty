@@ -35,8 +35,10 @@ export default async function LoginPage(props: Props) {
   return (
     <main className="flex min-h-screen items-center justify-center px-6">
       <Card className="mb-24 w-full max-w-sm">
-        <CardHeader>
-          <CardTitle withPotty>Get ready!</CardTitle>
+        <CardHeader className="text-center">
+          <CardTitle withPotty className="flex items-center justify-center">
+            Get ready!
+          </CardTitle>
           <CardDescription>One link to hear your users.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
