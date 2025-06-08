@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { PropsWithChildren } from "react";
 
+import { Toaster } from "~/common/sonner";
 import { ThemeProvider } from "~/common/theme-provider";
 import "./globals.css";
 
@@ -28,6 +29,7 @@ export default async function RootLayout(props: PropsWithChildren) {
           disableTransitionOnChange
         >
           {props.children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
