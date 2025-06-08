@@ -120,7 +120,7 @@ export function CreateTeamDialog(props: Props) {
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
-                    <FormDescription className="whitespace-nowrap">
+                    <FormDescription className="lg:whitespace-nowrap">
                       Will be used for your team&apos;s URL (e.g.{" "}
                       <code className="bg-muted relative inline h-fit rounded px-[0.3rem] py-[0.2rem]">
                         potty.dev/slug
