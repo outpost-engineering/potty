@@ -20,6 +20,19 @@ model User {
     invitations Invitation[]
 }
 
+model ApiKey {
+    id  String @id @default(cuid())
+    key String @unique
+    tid String
+
+    expiresAt DateTime?
+    createdAt DateTime  @default(now())
+
+    team Team @relation(fields: [tid], references: [id], onDelete: Cascade)
+
+    @@index([key])
+}
+
 model Team {
     id          String  @id @default(cuid())
     name        String
@@ -36,6 +49,8 @@ model Team {
     invitations Invitation[]
 
     apps App[]
+
+    ApiKey ApiKey[]
 }
 
 model App {
