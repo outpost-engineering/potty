@@ -14,13 +14,13 @@ export default async function SpaceLayout(props: PropsWithChildren) {
 
   return (
     <main className="container mx-auto min-h-screen max-w-7xl p-6">
-      <header className="flex h-20 w-full items-center justify-between">
-        <div>
+      <header className="bg-background sticky top-0 w-full border-b">
+        <div className="flex h-20 w-full items-center justify-between">
           <Link href="/~">
             <PottyLogo className="w-32" />
           </Link>
+          <ProfileDropdown user={session.user} />
         </div>
-        <ProfileDropdown user={session.user} />
       </header>
       {props.children}
     </main>

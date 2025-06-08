@@ -11,9 +11,9 @@ export default function MySettingsLayout(props: PropsWithChildren) {
     <div>
       <h1 className="mt-6 text-2xl font-medium">Account Settings</h1>
       <div>
-        <div className="mt-6 flex h-fit w-full gap-10 border-t">
-          <div className="hidden flex-1/4 pt-12 lg:h-screen">
-            <div className="sticky top-7 h-fit">
+        <div className="mt-0 flex h-fit w-full gap-10">
+          <div className="hidden flex-1/4 pt-12 md:block md:h-screen">
+            <div className="sticky top-32 h-fit">
               <Input placeholder="Search..." />
               <div className="mt-10 w-full">
                 <Link href="/~/settings">
@@ -43,7 +43,7 @@ export default function MySettingsLayout(props: PropsWithChildren) {
               </div>
             </div>
           </div>
-          <div className="h-fit pt-8 lg:flex-3/4 lg:pt-12">
+          <div className="h-fit pt-8 md:flex-3/4 md:pt-12">
             {props.children}
           </div>
         </div>
