@@ -18,17 +18,20 @@ model User {
 
     memberships Membership[]
     invitations Invitation[]
+    apiKeys     ApiKey[]
 }
 
 model ApiKey {
     id  String @id @default(cuid())
     key String @unique
-    tid String
+    aid String
+    uid String
 
     expiresAt DateTime?
     createdAt DateTime  @default(now())
 
-    team Team @relation(fields: [tid], references: [id], onDelete: Cascade)
+    app     App  @relation(fields: [aid], references: [id], onDelete: Cascade)
+    creator User @relation(fields: [uid], references: [id], onDelete: Cascade)
 
     @@index([key])
 }
@@ -49,8 +52,6 @@ model Team {
     invitations Invitation[]
 
     apps App[]
-
-    ApiKey ApiKey[]
 }
 
 model App {
@@ -65,6 +66,8 @@ model App {
     updatedAt DateTime @updatedAt
 
     team Team @relation(fields: [tid], references: [id], onDelete: Cascade)
+
+    apiKeys ApiKey[]
 
     @@unique([tid, name])
 }
