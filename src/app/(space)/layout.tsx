@@ -17,7 +17,7 @@ export default async function SpaceLayout(props: PropsWithChildren) {
       <header className="bg-background sticky top-0 z-40 w-full border-b">
         <div className="flex h-20 w-full items-center justify-between">
           <Link href="/~">
-            <PottyLogo className="w-32" />
+            <PottyLogo className="size-24" />
           </Link>
           <ProfileDropdown user={session.user} />
         </div>

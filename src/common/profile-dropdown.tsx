@@ -42,7 +42,7 @@ export function ProfileDropdown(props: Props) {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger className="outline-none">
-          <Avatar className="size-12 cursor-pointer select-none">
+          <Avatar className="size-10 cursor-pointer select-none">
             <AvatarImage src={user.picture!} alt="Picture" />
             <AvatarFallback className="text-lg">
               {user.name.charAt(0)}

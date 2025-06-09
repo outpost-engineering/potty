@@ -21,7 +21,13 @@ export default async function MyOverview() {
 
   const memberships = await prisma.membership.findMany({
     where: { uid: session.user.id },
-    include: { team: true },
+    include: {
+      team: {
+        include: {
+          apps: true,
+        },
+      },
+    },
   });
 
   return (
@@ -64,7 +70,8 @@ export default async function MyOverview() {
                   </CardHeader>
                   <CardFooter className="border-t">
                     <p className="text-muted-foreground text-sm">
-                      2 Apps - 10000 reports
+                      {m.team.apps.length === 0 && "No Apps"}
+                      {m.team.apps.length !== 0 && `${m.team.apps.length} Apps`}
                     </p>
                   </CardFooter>
                 </Card>
