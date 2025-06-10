@@ -1,13 +1,13 @@
-import { Avatar, AvatarImage } from "~/common/avatar";
-import { Button } from "~/common/button";
+import { Avatar, AvatarImage } from "~/components/avatar";
+import { Button } from "~/components/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/common/card";
-import { Input } from "~/common/input";
+} from "~/components/card";
+import { Input } from "~/components/input";
 import { getSession } from "~/libs/auth";
 
 export default async function GeneralSettings() {

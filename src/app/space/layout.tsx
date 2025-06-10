@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { PropsWithChildren } from "react";
-import { PottyLogo } from "~/common/potty-logo";
-import { ProfileDropdown } from "~/common/profile-dropdown";
+import { PottyLogo } from "~/components/potty-logo";
+import { ProfileDropdown } from "~/components/profile-dropdown";
 import { getSession } from "~/libs/auth";
 
 export default async function SpaceLayout(props: PropsWithChildren) {

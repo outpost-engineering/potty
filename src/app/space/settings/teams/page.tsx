@@ -1,13 +1,13 @@
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "~/common/avatar";
-import { Badge } from "~/common/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/avatar";
+import { Badge } from "~/components/badge";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/common/card";
+} from "~/components/card";
 import { getSession } from "~/libs/auth";
 import { prisma } from "~/libs/prisma";
 

@@ -1,8 +1,8 @@
 import { Metadata, Viewport } from "next";
 import { PropsWithChildren } from "react";
 
-import { Toaster } from "~/common/sonner";
-import { ThemeProvider } from "~/common/theme-provider";
+import { Toaster } from "~/components/sonner";
+import { ThemeProvider } from "~/components/theme-provider";
 import { fontSans } from "~/config/fonts";
 import { cn } from "~/utils/cn";
 

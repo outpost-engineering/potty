@@ -7,12 +7,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/common/card";
-import { AppleIcon } from "~/common/icons/apple";
-import { GithubIcon } from "~/common/icons/github";
-import { GoogleIcon } from "~/common/icons/google";
-import { MicrosoftIcon } from "~/common/icons/microsoft";
-import { LoginButton } from "~/common/login-button";
+} from "~/components/card";
+import { AppleIcon } from "~/components/icons/apple";
+import { GithubIcon } from "~/components/icons/github";
+import { GoogleIcon } from "~/components/icons/google";
+import { MicrosoftIcon } from "~/components/icons/microsoft";
+import { LoginButton } from "~/components/login-button";
 import { getSession } from "~/libs/auth";
 
 interface SearchParams {
