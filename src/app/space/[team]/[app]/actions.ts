@@ -6,7 +6,8 @@ import { prisma } from "~/libs/prisma";
 
 export async function isAppNameAvailable(team: Team, name: string) {
   try {
-    if (!(await isUserTeamAdmin(team))) return false;
+    const { session, membership } = await getMembership(team);
+    if (!session || membership?.role === "Member") return false;
 
     console.log("WE GET HERE");
     const app = await prisma.app.findUnique({
@@ -30,7 +31,8 @@ export async function createApp(
   description: string | undefined,
 ) {
   try {
-    if (!(await isUserTeamAdmin(team))) return false;
+    const { session, membership } = await getMembership(team);
+    if (!session || membership?.role === "Member") return false;
 
     const app = await prisma.app.create({
       data: {
@@ -56,15 +58,16 @@ export async function createApiKey(
   expiresAt?: string,
 ) {
   try {
-    if (!(await isUserTeamAdmin(team))) return false;
+    const { session, membership } = await getMembership(team);
+    if (!session || membership?.role === "Member") return false;
   } catch {
     return false;
   }
 }
 
-async function isUserTeamAdmin(team: Team) {
+async function getMembership(team: Team) {
   const session = await getSession();
-  if (!session) return null;
+  if (!session) return { session: null, membership: null };
 
   const membership = await prisma.membership.findUnique({
     where: {
@@ -75,5 +78,5 @@ async function isUserTeamAdmin(team: Team) {
     },
   });
 
-  return membership?.role === "Admin" || membership?.role === "Owner";
+  return { session, membership };
 }
