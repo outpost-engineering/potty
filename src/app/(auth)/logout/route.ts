@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { clearSession } from "~/utils/session";
+import { deleteSession } from "~/libs/auth";
 
 export async function GET() {
-  await clearSession();
+  await deleteSession();
   return NextResponse.redirect(process.env.BASE_URL!);
 }

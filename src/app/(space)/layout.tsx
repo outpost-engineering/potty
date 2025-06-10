@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { PropsWithChildren } from "react";
 import { PottyLogo } from "~/common/potty-logo";
 import { ProfileDropdown } from "~/common/profile-dropdown";
-import { getSession } from "~/utils/session";
+import { getSession } from "~/libs/auth";
 
 export default async function SpaceLayout(props: PropsWithChildren) {
   const session = await getSession();

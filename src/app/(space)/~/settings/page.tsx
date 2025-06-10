@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "~/common/card";
 import { Input } from "~/common/input";
-import { getSession } from "~/utils/session";
+import { getSession } from "~/libs/auth";
 
 export default async function GeneralSettings() {
   const session = await getSession();

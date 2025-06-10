@@ -1,8 +1,8 @@
 import { nanoid } from "nanoid";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { createSession } from "~/libs/auth";
 import { prisma } from "~/libs/prisma";
-import { createSession } from "~/utils/session";
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");

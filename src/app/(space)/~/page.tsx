@@ -9,8 +9,8 @@ import {
   CardTitle,
 } from "~/common/card";
 import { ScrollArea, ScrollBar } from "~/common/scroll-area";
+import { getSession } from "~/libs/auth";
 import { prisma } from "~/libs/prisma";
-import { getSession } from "~/utils/session";
 
 export default async function MyOverview() {
   const session = await getSession();

@@ -8,8 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "~/common/card";
+import { getSession } from "~/libs/auth";
 import { prisma } from "~/libs/prisma";
-import { getSession } from "~/utils/session";
 
 export default async function TeamsSettings() {
   const session = await getSession();

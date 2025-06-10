@@ -1,8 +1,8 @@
 "use server";
 
 import { Team } from "@prisma/client";
+import { getSession } from "~/libs/auth";
 import { prisma } from "~/libs/prisma";
-import { getSession } from "~/utils/session";
 
 export async function isAppNameAvailable(team: Team, name: string) {
   try {

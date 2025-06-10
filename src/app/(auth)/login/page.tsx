@@ -13,7 +13,7 @@ import { GithubIcon } from "~/common/icons/github";
 import { GoogleIcon } from "~/common/icons/google";
 import { MicrosoftIcon } from "~/common/icons/microsoft";
 import { LoginButton } from "~/common/login-button";
-import { getSession } from "~/utils/session";
+import { getSession } from "~/libs/auth";
 
 interface SearchParams {
   redirect?: string;
