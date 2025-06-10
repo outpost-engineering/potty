@@ -6,30 +6,7 @@ import { prisma } from "~/libs/prisma";
 
 export async function isAppNameAvailable(team: Team, name: string) {
   try {
-    const session = await getSession();
-
-    if (!session) {
-      return false;
-    }
-
-    const membership = await prisma.membership.findUnique({
-      where: {
-        uid_tid: {
-          uid: session.user.id,
-          tid: team.id,
-        },
-      },
-    });
-
-    if (!membership) {
-      return false;
-    }
-
-    const role = membership.role;
-
-    if (role === "Member") {
-      return false;
-    }
+    if (!(await isUserTeamAdmin(team))) return false;
 
     console.log("WE GET HERE");
     const app = await prisma.app.findUnique({
@@ -53,30 +30,7 @@ export async function createApp(
   description: string | undefined,
 ) {
   try {
-    const session = await getSession();
-
-    if (!session) {
-      return false;
-    }
-
-    const membership = await prisma.membership.findUnique({
-      where: {
-        uid_tid: {
-          uid: session.user.id,
-          tid: team.id,
-        },
-      },
-    });
-
-    if (!membership) {
-      return false;
-    }
-
-    const role = membership.role;
-
-    if (role === "Member") {
-      return false;
-    }
+    if (!(await isUserTeamAdmin(team))) return false;
 
     const app = await prisma.app.create({
       data: {
@@ -94,4 +48,32 @@ export async function createApp(
   } catch {
     return false;
   }
+}
+
+export async function createApiKey(
+  team: Team,
+  appId: string,
+  expiresAt?: string,
+) {
+  try {
+    if (!(await isUserTeamAdmin(team))) return false;
+  } catch {
+    return false;
+  }
+}
+
+async function isUserTeamAdmin(team: Team) {
+  const session = await getSession();
+  if (!session) return null;
+
+  const membership = await prisma.membership.findUnique({
+    where: {
+      uid_tid: {
+        uid: session.user.id,
+        tid: team.id,
+      },
+    },
+  });
+
+  return membership?.role === "Admin" || membership?.role === "Owner";
 }
