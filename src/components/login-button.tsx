@@ -1,6 +1,5 @@
-"use client";
 import { ReactNode } from "react";
-import { loginWith } from "~/app/login/actions";
+import { signIn } from "~/libs/auth";
 import { Button } from "./button";
 interface Props {
   icon: ReactNode;
@@ -12,14 +11,17 @@ export function LoginButton(props: Props) {
   const { icon, provider, redirect } = props;
 
   return (
-    <Button
-      className="w-full"
-      variant="outline"
-      onClick={() => loginWith(provider, redirect)}
+    <form
+      action={async () => {
+        "use server";
+        await signIn("github", { redirectTo: redirect });
+      }}
     >
-      {icon}
-      Continue with {provider}
-      <div className="size-5" aria-hidden></div>
-    </Button>
+      <Button className="w-full" variant="outline">
+        {icon}
+        Continue with {provider}
+        <div className="size-5" aria-hidden></div>
+      </Button>
+    </form>
   );
 }
