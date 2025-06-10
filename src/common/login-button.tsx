@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode } from "react";
-import { loginWith } from "~/app/(auth)/login/actions";
+import { loginWith } from "~/app/login/actions";
 import { Button } from "./button";
 interface Props {
   icon: ReactNode;
