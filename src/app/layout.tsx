@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react";
 
 import { Toaster } from "~/common/sonner";
 import { ThemeProvider } from "~/common/theme-provider";
-import "./globals.css";
+import "~/styles/globals.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
