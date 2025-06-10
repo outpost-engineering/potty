@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 export async function loginWith(provider: string, redirectUrl: string) {
   const cookieStore = await cookies();
-  await cookieStore.set("potty.redirect_uri", redirectUrl ?? "/~");
+  await cookieStore.set("potty.redirect_uri", redirectUrl ?? "/space");
 
   const callback = `${process.env.BASE_URL}/api/auth/${provider.toLowerCase()}`;
 

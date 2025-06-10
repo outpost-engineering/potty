@@ -63,13 +63,13 @@ export function ProfileDropdown(props: Props) {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuGroup>
-            <Link href="/~">
+            <Link href="space">
               <DropdownMenuItem>
                 Dashboard
                 <BriefcaseIcon className="size-5" />
               </DropdownMenuItem>
             </Link>
-            <Link href="/~/settings">
+            <Link href="/space/settings">
               <DropdownMenuItem>
                 Account Settings
                 <Cog8ToothIcon className="size-5" />

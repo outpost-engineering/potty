@@ -16,25 +16,25 @@ export default function MySettingsLayout(props: PropsWithChildren) {
             <div className="sticky top-32 h-fit">
               <Input placeholder="Search..." />
               <div className="mt-10 w-full">
-                <Link href="/~/settings">
+                <Link href="/space/settings">
                   <div
-                    data-active={pathname === "/~/settings"}
+                    data-active={pathname === "/space/settings"}
                     className="hover:bg-accent/80 text-muted-foreground data-[active=true]:text-foreground mb-1.5 w-full rounded-md px-2 py-2 text-sm transition-all"
                   >
                     General
                   </div>
                 </Link>
-                <Link href="/~/settings/authentication">
+                <Link href="/space/settings/authentication">
                   <div
-                    data-active={pathname === "/~/settings/authentication"}
+                    data-active={pathname === "/space/settings/authentication"}
                     className="hover:bg-accent/80 text-muted-foreground data-[active=true]:text-foreground mb-1.5 w-full rounded-md px-2 py-2 text-sm transition-all"
                   >
                     Authentication
                   </div>
                 </Link>
-                <Link href="/~/settings/teams">
+                <Link href="/space/settings/teams">
                   <div
-                    data-active={pathname === "/~/settings/teams"}
+                    data-active={pathname === "/space/settings/teams"}
                     className="hover:bg-accent/80 text-muted-foreground data-[active=true]:text-foreground mb-1.5 w-full rounded-md px-2 py-2 text-sm transition-all"
                   >
                     Teams

@@ -35,7 +35,7 @@ export default async function MyOverview() {
       <div className="mt-6 flex items-center justify-between">
         <h1 className="text-2xl font-medium">Your Teams</h1>
         <Link
-          href="/~/settings/teams"
+          href="/space/settings/teams"
           className="text-primary flex w-fit items-center text-sm"
         >
           Show all teams

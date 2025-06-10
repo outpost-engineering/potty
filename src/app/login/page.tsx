@@ -26,7 +26,7 @@ interface Props {
 export default async function LoginPage(props: Props) {
   const session = await getSession();
   const search = await props.searchParams;
-  const redirectUrl = search.redirect ?? "/~";
+  const redirectUrl = search.redirect ?? "/space";
 
   if (session) {
     redirect("/");

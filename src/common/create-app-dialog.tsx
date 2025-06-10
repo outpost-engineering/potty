@@ -10,7 +10,7 @@ import { z } from "zod";
 import {
   createApp,
   isAppNameAvailable,
-} from "~/app/(space)/[team]/[app]/actions";
+} from "~/app/space/[team]/[app]/actions";
 import { Button } from "./button";
 import {
   Dialog,

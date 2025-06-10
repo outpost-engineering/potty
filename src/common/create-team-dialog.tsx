@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { createTeam, isTeamSlugAvailable } from "~/app/(space)/[team]/actions";
+import { createTeam, isTeamSlugAvailable } from "~/app/space/[team]/actions";
 import { Button } from "./button";
 import {
   Dialog,
