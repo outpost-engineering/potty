@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "~/utils/prisma";
+import { prisma } from "~/libs/prisma";
 import { getSession } from "~/utils/session";
 
 export async function isTeamSlugAvailable(slug: string) {

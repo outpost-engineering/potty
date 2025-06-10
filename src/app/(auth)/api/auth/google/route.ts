@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "~/utils/prisma";
+import { prisma } from "~/libs/prisma";
 import { createSession } from "~/utils/session";
 
 export async function GET(req: NextRequest) {

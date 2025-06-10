@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/common/card";
-import { prisma } from "~/utils/prisma";
+import { prisma } from "~/libs/prisma";
 import { getSession } from "~/utils/session";
 
 export default async function TeamsSettings() {

@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "~/common/card";
 import { CreateAppDialog } from "~/common/create-app-dialog";
-import { prisma } from "~/utils/prisma";
+import { prisma } from "~/libs/prisma";
 
 interface Params {
   team: string;
