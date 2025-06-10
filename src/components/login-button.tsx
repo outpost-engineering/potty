@@ -15,7 +15,7 @@ export function LoginButton(props: Props) {
     <form
       action={async () => {
         "use server";
-        await signIn(provider, { redirectTo: redirect });
+        await signIn(provider.toLocaleLowerCase(), { redirectTo: redirect });
       }}
     >
       <Button className="w-full" variant="outline">
