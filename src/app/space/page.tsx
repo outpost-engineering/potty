@@ -48,7 +48,7 @@ export default async function MyOverview() {
             {memberships.map((m) => (
               <Link
                 key={m.tid}
-                href={`/${m.team.slug}`}
+                href={`/space/${m.team.slug}`}
                 className="shrink-0 overflow-hidden"
               >
                 <Card className="w-xs">

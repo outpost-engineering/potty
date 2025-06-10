@@ -100,7 +100,7 @@ export default async function Team(props: Props) {
         {team.apps.map((a) => (
           <Link
             key={a.id}
-            href={`/${team.slug}/${a.name}`}
+            href={`/space/${team.slug}/${a.name}`}
             className="shrink-0 overflow-hidden"
           >
             <Card className="w-xs">
