@@ -8,10 +8,10 @@ import {
   CardTitle,
 } from "~/components/card";
 import { Input } from "~/components/input";
-import { getSession } from "~/libs/auth";
+import { auth } from "~/libs/auth";
 
 export default async function GeneralSettings() {
-  const session = await getSession();
+  const session = await auth();
 
   if (!session) {
     return null;
@@ -29,7 +29,7 @@ export default async function GeneralSettings() {
             Click on the avatar to upload a custom one from your files.
           </p>
           <Avatar className="size-24">
-            <AvatarImage src={session.user.picture!} alt="Avatar" />
+            <AvatarImage src={session.user!.image!} alt="Avatar" />
           </Avatar>
         </CardContent>
         <CardFooter className="border-t">
@@ -47,7 +47,7 @@ export default async function GeneralSettings() {
             Please enter your full name, or a display name you are comfortable
             with.
           </p>
-          <Input className="mt-5 w-fit" defaultValue={session.user.name} />
+          <Input className="mt-5 w-fit" defaultValue={session.user!.name!} />
         </CardContent>
         <CardFooter className="justify-between border-t">
           <p className="text-muted-foreground text-sm">

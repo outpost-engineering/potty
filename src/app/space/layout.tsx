@@ -3,10 +3,10 @@ import { redirect } from "next/navigation";
 import { PropsWithChildren } from "react";
 import { PottyLogo } from "~/components/potty-logo";
 import { ProfileDropdown } from "~/components/profile-dropdown";
-import { getSession } from "~/libs/auth";
+import { auth } from "~/libs/auth";
 
 export default async function SpaceLayout(props: PropsWithChildren) {
-  const session = await getSession();
+  const session = await auth();
 
   if (!session) {
     redirect("/login");
@@ -19,7 +19,7 @@ export default async function SpaceLayout(props: PropsWithChildren) {
           <Link href="/space">
             <PottyLogo className="size-24" />
           </Link>
-          <ProfileDropdown user={session.user} />
+          <ProfileDropdown user={session.user!} />
         </div>
       </header>
       {props.children}

@@ -8,18 +8,18 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/card";
-import { getSession } from "~/libs/auth";
+import { auth } from "~/libs/auth";
 import { prisma } from "~/libs/prisma";
 
 export default async function TeamsSettings() {
-  const session = await getSession();
+  const session = await auth();
 
   if (!session) {
     return null;
   }
 
   const memberships = await prisma.membership.findMany({
-    where: { uid: session.user.id },
+    where: { uid: session.user!.id },
     include: { team: true },
   });
 

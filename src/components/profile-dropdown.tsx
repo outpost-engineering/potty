@@ -7,9 +7,10 @@ import {
   PlusCircleIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/24/outline";
-import { User } from "@prisma/client";
+import { User } from "next-auth";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { logout } from "~/libs/actions";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { CreateTeamDialog } from "./create-team-dialog";
 import {
@@ -43,9 +44,9 @@ export function ProfileDropdown(props: Props) {
       <DropdownMenu>
         <DropdownMenuTrigger className="outline-none">
           <Avatar className="size-10 cursor-pointer select-none">
-            <AvatarImage src={user.picture!} alt="Picture" />
+            <AvatarImage src={user.image!} alt="Picture" />
             <AvatarFallback className="text-lg">
-              {user.name.charAt(0)}
+              {user.name!.charAt(0)}
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
@@ -99,12 +100,10 @@ export function ProfileDropdown(props: Props) {
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <Link href="/logout">
-            <DropdownMenuItem variant="destructive">
-              Log Out
-              <ArrowLeftStartOnRectangleIcon className="size-5" />
-            </DropdownMenuItem>
-          </Link>
+          <DropdownMenuItem variant="destructive" onClick={logout}>
+            Log Out
+            <ArrowLeftStartOnRectangleIcon className="size-5" />
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <CreateTeamDialog

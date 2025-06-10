@@ -8,32 +8,39 @@ generator client {
 }
 
 model User {
-    id      String  @id @default(cuid())
-    name    String
-    email   String  @unique
-    picture String?
+    id            String    @id @default(cuid())
+    name          String?
+    email         String    @unique
+    emailVerified DateTime?
+    image         String?
+    accounts      Account[]
+
+    createdAt  DateTime     @default(now())
+    updatedAt  DateTime     @updatedAt
+    Membership Membership[]
+    Invitation Invitation[]
+    ApiKey     ApiKey[]
+}
+
+model Account {
+    userId            String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String?
+    access_token      String?
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String?
+    session_state     String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    memberships Membership[]
-    invitations Invitation[]
-    apiKeys     ApiKey[]
-}
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-model ApiKey {
-    id  String @id @default(cuid())
-    key String @unique
-    aid String
-    uid String
-
-    expiresAt DateTime?
-    createdAt DateTime  @default(now())
-
-    app     App  @relation(fields: [aid], references: [id], onDelete: Cascade)
-    creator User @relation(fields: [uid], references: [id], onDelete: Cascade)
-
-    @@index([key])
+    @@id([provider, providerAccountId])
 }
 
 model Team {
@@ -52,24 +59,6 @@ model Team {
     invitations Invitation[]
 
     apps App[]
-}
-
-model App {
-    id          String  @id @default(cuid())
-    tid         String
-    name        String
-    description String?
-    picture     String?
-    website     String?
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    team Team @relation(fields: [tid], references: [id], onDelete: Cascade)
-
-    apiKeys ApiKey[]
-
-    @@unique([tid, name])
 }
 
 model Membership {
@@ -110,4 +99,37 @@ enum InvitationStatus {
     Pending
     Accepted
     Revoked
+}
+
+model App {
+    id          String  @id @default(cuid())
+    tid         String
+    name        String
+    description String?
+    picture     String?
+    website     String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    team Team @relation(fields: [tid], references: [id], onDelete: Cascade)
+
+    apiKeys ApiKey[]
+
+    @@unique([tid, name])
+}
+
+model ApiKey {
+    id  String @id @default(cuid())
+    key String @unique
+    aid String
+    uid String
+
+    expiresAt DateTime?
+    createdAt DateTime  @default(now())
+
+    app     App  @relation(fields: [aid], references: [id], onDelete: Cascade)
+    creator User @relation(fields: [uid], references: [id], onDelete: Cascade)
+
+    @@index([key])
 }

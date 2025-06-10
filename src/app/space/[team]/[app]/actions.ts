@@ -3,7 +3,7 @@
 import { Team } from "@prisma/client";
 import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
-import { getSession } from "~/libs/auth";
+import { auth } from "~/libs/auth";
 import { prisma } from "~/libs/prisma";
 
 export async function isAppNameAvailable(team: Team, name: string) {
@@ -69,7 +69,7 @@ export async function createApiKey(
       data: {
         key,
         aid: appId,
-        uid: session.user.id,
+        uid: session.user!.id!,
         expiresAt: expiresAt ?? null,
       },
     });
@@ -82,13 +82,13 @@ export async function createApiKey(
 }
 
 async function getMembership(team: Team) {
-  const session = await getSession();
+  const session = await auth();
   if (!session) return { session: null, membership: null };
 
   const membership = await prisma.membership.findUnique({
     where: {
       uid_tid: {
-        uid: session.user.id,
+        uid: session.user!.id!,
         tid: team.id,
       },
     },

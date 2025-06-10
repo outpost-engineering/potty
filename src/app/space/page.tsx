@@ -9,18 +9,18 @@ import {
   CardTitle,
 } from "~/components/card";
 import { ScrollArea, ScrollBar } from "~/components/scroll-area";
-import { getSession } from "~/libs/auth";
+import { auth } from "~/libs/auth";
 import { prisma } from "~/libs/prisma";
 
 export default async function MyOverview() {
-  const session = await getSession();
+  const session = await auth();
 
   if (!session) {
     return null;
   }
 
   const memberships = await prisma.membership.findMany({
-    where: { uid: session.user.id },
+    where: { uid: session.user!.id },
     include: {
       team: {
         include: {
