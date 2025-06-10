@@ -13,7 +13,7 @@ import { GithubIcon } from "~/components/icons/github";
 import { GoogleIcon } from "~/components/icons/google";
 import { MicrosoftIcon } from "~/components/icons/microsoft";
 import { LoginButton } from "~/components/login-button";
-import { getSession } from "~/libs/auth";
+import { auth } from "~/libs/auth";
 
 interface SearchParams {
   redirect?: string;
@@ -24,7 +24,7 @@ interface Props {
 }
 
 export default async function LoginPage(props: Props) {
-  const session = await getSession();
+  const session = await auth();
   const search = await props.searchParams;
   const redirectUrl = search.redirect ?? "/space";
 

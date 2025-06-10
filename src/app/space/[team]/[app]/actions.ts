@@ -1,12 +1,12 @@
 "use server";
 
 import { Team } from "@prisma/client";
-import { getSession } from "~/libs/auth";
+import { auth } from "~/libs/auth";
 import { prisma } from "~/libs/prisma";
 
 export async function isAppNameAvailable(team: Team, name: string) {
   try {
-    const session = await getSession();
+    const session = await auth();
 
     if (!session) {
       return false;
@@ -15,7 +15,7 @@ export async function isAppNameAvailable(team: Team, name: string) {
     const membership = await prisma.membership.findUnique({
       where: {
         uid_tid: {
-          uid: session.user.id,
+          uid: session.user!.id!,
           tid: team.id,
         },
       },
@@ -53,7 +53,7 @@ export async function createApp(
   description: string | undefined,
 ) {
   try {
-    const session = await getSession();
+    const session = await auth();
 
     if (!session) {
       return false;
@@ -62,7 +62,7 @@ export async function createApp(
     const membership = await prisma.membership.findUnique({
       where: {
         uid_tid: {
-          uid: session.user.id,
+          uid: session.user!.id!,
           tid: team.id,
         },
       },

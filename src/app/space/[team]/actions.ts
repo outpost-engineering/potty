@@ -1,11 +1,11 @@
 "use server";
 
-import { getSession } from "~/libs/auth";
+import { auth } from "~/libs/auth";
 import { prisma } from "~/libs/prisma";
 
 export async function isTeamSlugAvailable(slug: string) {
   try {
-    const session = await getSession();
+    const session = await auth();
 
     if (!session) {
       return false;
@@ -25,7 +25,7 @@ export async function isTeamSlugAvailable(slug: string) {
 
 export async function createTeam(name: string, slug: string) {
   try {
-    const session = await getSession();
+    const session = await auth();
 
     if (!session) {
       return false;
@@ -37,7 +37,7 @@ export async function createTeam(name: string, slug: string) {
         slug,
         memberships: {
           create: {
-            uid: session.user.id,
+            uid: session.user!.id!,
             role: "Owner",
           },
         },
