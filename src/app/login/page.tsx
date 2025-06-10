@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
@@ -13,7 +14,7 @@ import { GithubIcon } from "~/components/icons/github";
 import { GoogleIcon } from "~/components/icons/google";
 import { MicrosoftIcon } from "~/components/icons/microsoft";
 import { LoginButton } from "~/components/login-button";
-import { getSession } from "~/libs/auth";
+import { auth } from "~/libs/auth";
 
 interface SearchParams {
   redirect?: string;
@@ -23,8 +24,14 @@ interface Props {
   searchParams: Promise<SearchParams>;
 }
 
+export const metadata: Metadata = {
+  title: "Login",
+  description:
+    "Log in to Potty to manage feedback, bug reports, and feature requests for your apps and teams.",
+};
+
 export default async function LoginPage(props: Props) {
-  const session = await getSession();
+  const session = await auth();
   const search = await props.searchParams;
   const redirectUrl = search.redirect ?? "/space";
 
@@ -43,22 +50,22 @@ export default async function LoginPage(props: Props) {
         </CardHeader>
         <CardContent className="space-y-3">
           <LoginButton
-            icon={<GithubIcon className="size-5" />}
+            icon={GithubIcon}
             provider="Github"
             redirect={redirectUrl}
           />
           <LoginButton
-            icon={<GoogleIcon className="size-5" />}
+            icon={GoogleIcon}
             provider="Google"
             redirect={redirectUrl}
           />
           <LoginButton
-            icon={<MicrosoftIcon className="size-5" />}
+            icon={MicrosoftIcon}
             provider="Microsoft"
             redirect={redirectUrl}
           />
           <LoginButton
-            icon={<AppleIcon className="size-5" />}
+            icon={AppleIcon}
             provider="Apple"
             redirect={redirectUrl}
           />
