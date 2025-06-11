@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/card";
-import { CreateApiKeyDialog } from "~/components/create-api-key-dialog";
+import { CreateAppTokenDialog } from "~/components/create-app-token-dialog";
 import { prisma } from "~/libs/prisma";
 
 interface Params {
@@ -37,7 +37,7 @@ export default async function App(props: Props) {
       },
     },
     include: {
-      apiKeys: true,
+      tokens: true,
     },
   });
 
@@ -61,17 +61,17 @@ export default async function App(props: Props) {
       </div>
 
       <div className="mt-10 flex items-center justify-between">
-        <h1 className="text-2xl font-medium">API Keys</h1>
-        <CreateApiKeyDialog team={team} appId={app.id}>
-          <Button size="sm">New API key</Button>
-        </CreateApiKeyDialog>
+        <h1 className="text-2xl font-medium">App Tokens</h1>
+        <CreateAppTokenDialog team={team} appId={app.id}>
+          <Button size="sm">New App Tokens</Button>
+        </CreateAppTokenDialog>
       </div>
 
       <div className="gird-cols-1 mt-5 grid md:grid-cols-2 lg:grid-cols-3">
-        {app.apiKeys.map((k) => (
+        {app.tokens.map((k) => (
           <Card key={k.id} className="w-xs">
             <CardHeader>
-              <CardTitle className="text-sm break-all">{k.key}</CardTitle>
+              <CardTitle className="text-sm break-all">{k.token}</CardTitle>
               <CardDescription className="text-xs">
                 Expires:{" "}
                 {k.expiresAt ? new Date(k.expiresAt).toLocaleString() : "Never"}

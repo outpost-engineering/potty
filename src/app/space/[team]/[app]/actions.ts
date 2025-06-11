@@ -54,7 +54,7 @@ export async function createApp(
   }
 }
 
-export async function createApiKey(
+export async function createAppToken(
   team: Team,
   appId: string,
   expiresAt?: string,
@@ -63,11 +63,11 @@ export async function createApiKey(
     const { session, membership } = await getMembership(team);
     if (!session || membership?.role === "Member") return false;
 
-    const key = `api_${nanoid(32)}`;
+    const token = `pat_${nanoid(32)}`;
 
-    const apiKey = await prisma.apiKey.create({
+    const apiKey = await prisma.appToken.create({
       data: {
-        key,
+        token,
         aid: appId,
         uid: session.user!.id!,
         expiresAt: expiresAt ?? null,

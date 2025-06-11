@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { createApiKey } from "~/app/space/[team]/[app]/actions";
+import { createAppToken } from "~/app/space/[team]/[app]/actions";
 import { Button } from "./button";
 import {
   Dialog,
@@ -43,7 +43,7 @@ interface Props {
   appId: string;
 }
 
-export function CreateApiKeyDialog({ children, team, appId }: Props) {
+export function CreateAppTokenDialog({ children, team, appId }: Props) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -56,7 +56,7 @@ export function CreateApiKeyDialog({ children, team, appId }: Props) {
   const onSubmit = async (data: z.infer<typeof schema>) => {
     await toast.promise(
       async () => {
-        const created = await createApiKey(team, appId, data.expiresAt);
+        const created = await createAppToken(team, appId, data.expiresAt);
         if (!created) throw new Error("API key creation failed");
 
         form.reset();
