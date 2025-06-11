@@ -19,40 +19,45 @@ const feedbackSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  const token = getBearerToken(req);
+  try {
+    const token = getBearerToken(req);
 
-  if (!token) {
-    return unauthorized("Token is missing");
-  }
+    if (!token) {
+      return unauthorized("Token is missing");
+    }
 
-  const appToken = await prisma.appToken.findUnique({
-    where: { token },
-    include: { app: true },
-  });
-
-  if (!appToken) {
-    return forbidden("Invalid token");
-  }
-
-  if (appToken.expiresAt && appToken.expiresAt < new Date()) {
-    return forbidden("Token expired");
-  }
-
-  const body = await req.json();
-  const parse = feedbackSchema.safeParse(body);
-
-  if (!parse.success) {
-    return error("Invalid request body", 400, {
-      issues: parse.error?.flatten(),
+    const appToken = await prisma.appToken.findUnique({
+      where: { token },
+      include: { app: true },
     });
+
+    if (!appToken) {
+      return forbidden("Invalid token");
+    }
+
+    if (appToken.expiresAt && appToken.expiresAt < new Date()) {
+      return forbidden("Token expired");
+    }
+
+    const body = await req.json();
+    const parse = feedbackSchema.safeParse(body);
+
+    if (!parse.success) {
+      return error("Invalid request body", 400, {
+        issues: parse.error?.flatten(),
+      });
+    }
+
+    await prisma.feedback.create({
+      data: {
+        ...parse.data,
+        aid: appToken.aid,
+      },
+    });
+
+    return NextResponse.json({}, { status: 201 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({}, { status: 500 });
   }
-
-  await prisma.feedback.create({
-    data: {
-      ...parse.data,
-      aid: appToken.aid,
-    },
-  });
-
-  return NextResponse.json({}, { status: 201 });
 }
