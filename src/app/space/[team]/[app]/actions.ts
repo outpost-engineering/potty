@@ -81,6 +81,32 @@ export async function createAppToken(
   }
 }
 
+export async function revokeAppToken(
+  team: Team,
+  appId: string,
+  tokenId: string,
+) {
+  try {
+    const { session, membership } = await getMembership(team);
+    if (!session || membership?.role === "Member") return false;
+
+    const token = await prisma.appToken.findUnique({
+      where: { id: tokenId },
+    });
+
+    if (!token || token.aid !== appId) return false;
+
+    await prisma.appToken.delete({
+      where: { id: tokenId },
+    });
+
+    revalidatePath(`/space/${team.slug}/${token.aid}`);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function getMembership(team: Team) {
   const session = await auth();
   if (!session) return { session: null, membership: null };
