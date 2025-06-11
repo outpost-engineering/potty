@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "~/libs/prisma";
-import { error, forbidden, getBearerToken, unauthorized } from "~/libs/server";
+import {
+  forbidden,
+  getBearerToken,
+  getBody,
+  unauthorized,
+} from "~/libs/server";
 
 const feedbackSchema = z.object({
   note: z
@@ -39,18 +44,15 @@ export async function POST(req: NextRequest) {
       return forbidden("Token expired");
     }
 
-    const body = await req.json();
-    const parse = feedbackSchema.safeParse(body);
+    const parsed = await getBody(req, feedbackSchema);
 
-    if (!parse.success) {
-      return error("Invalid request body", 400, {
-        issues: parse.error?.flatten(),
-      });
+    if (!parsed.data) {
+      return parsed.response;
     }
 
     await prisma.feedback.create({
       data: {
-        ...parse.data,
+        ...parsed.data,
         aid: appToken.aid,
       },
     });
