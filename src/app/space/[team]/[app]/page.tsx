@@ -37,7 +37,13 @@ export default async function App(props: Props) {
       },
     },
     include: {
-      tokens: true,
+      tokens: {
+        select: {
+          id: true,
+          createdAt: true,
+          expiresAt: true,
+        },
+      },
     },
   });
 
@@ -71,7 +77,7 @@ export default async function App(props: Props) {
         {app.tokens.map((k) => (
           <Card key={k.id} className="mt-5 w-xs">
             <CardHeader>
-              <CardTitle className="text-sm break-all">{k.token}</CardTitle>
+              <CardTitle className="text-sm break-all">{k.id}</CardTitle>
               <CardDescription className="text-xs">
                 Expires:{" "}
                 {k.expiresAt ? new Date(k.expiresAt).toLocaleString() : "Never"}
