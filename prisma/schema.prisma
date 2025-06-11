@@ -15,11 +15,12 @@ model User {
     image         String?
     accounts      Account[]
 
-    createdAt  DateTime     @default(now())
-    updatedAt  DateTime     @updatedAt
-    Membership Membership[]
-    Invitation Invitation[]
-    ApiKey     ApiKey[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    memberships Membership[]
+    invitations Invitation[]
+    appTokens   AppToken[]
 }
 
 model Account {
@@ -114,16 +115,17 @@ model App {
 
     team Team @relation(fields: [tid], references: [id], onDelete: Cascade)
 
-    apiKeys ApiKey[]
+    tokens   AppToken[]
+    Feedback Feedback[]
 
     @@unique([tid, name])
 }
 
-model ApiKey {
-    id  String @id @default(cuid())
-    key String @unique
-    aid String
-    uid String
+model AppToken {
+    id    String @id @default(cuid())
+    token String @unique
+    aid   String
+    uid   String
 
     expiresAt DateTime?
     createdAt DateTime  @default(now())
@@ -131,5 +133,20 @@ model ApiKey {
     app     App  @relation(fields: [aid], references: [id], onDelete: Cascade)
     creator User @relation(fields: [uid], references: [id], onDelete: Cascade)
 
-    @@index([key])
+    @@index([token])
+}
+
+model Feedback {
+    id      String  @id @default(cuid())
+    aid     String
+    url     String?
+    email   String?
+    note    String
+    emotion String?
+    label   String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    app App @relation(fields: [aid], references: [id], onDelete: Cascade)
 }
