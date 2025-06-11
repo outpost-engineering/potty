@@ -9,10 +9,13 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { createAppToken } from "~/app/space/[team]/[app]/actions";
+
 import { Button } from "./button";
+import { Datepicker } from "./datepicker";
 import {
   Dialog,
   DialogBody,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -28,13 +31,9 @@ import {
   FormLabel,
   FormMessage,
 } from "./form";
-import { Input } from "./input";
 
 const schema = z.object({
-  expiresAt: z
-    .string()
-    .datetime({ message: "Must be a valid ISO 8601 date-time string" })
-    .optional(),
+  expiresAt: z.date().optional(),
 });
 
 interface Props {
@@ -55,11 +54,12 @@ export function CreateAppTokenDialog({ children, team, appId }: Props) {
   });
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
+    const expiresAt = data.expiresAt?.toISOString();
+
     await toast.promise(
       async () => {
-        const created = await createAppToken(team, appId, data.expiresAt);
+        const created = await createAppToken(team, appId, expiresAt);
         if (!created) throw new Error("API key creation failed");
-
         setCreatedToken(created.token);
         form.reset();
       },
@@ -90,7 +90,7 @@ export function CreateAppTokenDialog({ children, team, appId }: Props) {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <DialogHeader>
-                <DialogTitle>Create App Token</DialogTitle>
+                <DialogTitle>Create API Key</DialogTitle>
                 <DialogDescription>
                   If you do not set an expiration date, the token will never
                   expire.
@@ -104,9 +104,9 @@ export function CreateAppTokenDialog({ children, team, appId }: Props) {
                     <FormItem>
                       <FormLabel optional>Expiration Date</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="e.g. 2025-12-31T23:59:59Z"
-                          {...field}
+                        <Datepicker
+                          date={field.value}
+                          onChange={field.onChange}
                         />
                       </FormControl>
                       <FormMessage />
@@ -115,16 +115,13 @@ export function CreateAppTokenDialog({ children, team, appId }: Props) {
                 />
               </DialogBody>
               <DialogFooter>
-                <Button
-                  variant="outline"
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  size="sm"
-                >
-                  Cancel
-                </Button>
+                <DialogClose asChild>
+                  <Button variant="outline" size="sm" type="button">
+                    Cancel
+                  </Button>
+                </DialogClose>
                 <Button size="sm" type="submit">
-                  Continue
+                  Create
                 </Button>
               </DialogFooter>
             </form>
@@ -134,7 +131,7 @@ export function CreateAppTokenDialog({ children, team, appId }: Props) {
             <DialogHeader>
               <DialogTitle>Token created</DialogTitle>
               <DialogDescription>
-                This is your token. Copy it now—you won’t be able to see it
+                This is your token. Copy it now — you won’t be able to see it
                 again.
               </DialogDescription>
             </DialogHeader>
