@@ -9,7 +9,9 @@ import {
   CardTitle,
 } from "~/components/card";
 import { CreateAppTokenDialog } from "~/components/create-app-token-dialog";
+import { RevokeTokenButton } from "~/components/revoke-token-button";
 import { prisma } from "~/libs/prisma";
+import { revokeAppToken } from "./actions";
 
 interface Params {
   team: string;
@@ -73,18 +75,27 @@ export default async function App(props: Props) {
         </CreateAppTokenDialog>
       </div>
 
-      <div className="gird-cols-1 grid md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {app.tokens.map((k) => (
           <Card key={k.id} className="mt-5 w-xs">
             <CardHeader>
-              <CardTitle className="text-sm break-all">{k.id}</CardTitle>
+              <div className="flex items-center justify-between gap-2">
+                <CardTitle className="text-sm break-all">{k.id}</CardTitle>
+                <RevokeTokenButton
+                  onRevoke={async () => {
+                    "use server";
+                    await revokeAppToken(team, app.id, k.id);
+                  }}
+                />
+              </div>
               <CardDescription className="text-xs">
                 Expires:{" "}
                 {k.expiresAt ? new Date(k.expiresAt).toLocaleString() : "Never"}
               </CardDescription>
             </CardHeader>
-            <CardFooter className="text-muted-foreground border-t text-xs">
-              Created at {new Date(k.createdAt).toLocaleString()}
+
+            <CardFooter className="text-muted-foreground flex justify-between border-t text-xs">
+              <span>Created at {new Date(k.createdAt).toLocaleString()}</span>
             </CardFooter>
           </Card>
         ))}
