@@ -150,7 +150,7 @@ export function CreateAppTokenDialog({ children, team, appId }: Props) {
                 </button>
               </div>
             </DialogBody>
-            <DialogFooter>
+            <DialogFooter className="justify-end">
               <Button size="sm" onClick={handleClose}>
                 Close
               </Button>

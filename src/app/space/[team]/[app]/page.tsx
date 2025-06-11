@@ -67,9 +67,9 @@ export default async function App(props: Props) {
         </CreateAppTokenDialog>
       </div>
 
-      <div className="gird-cols-1 mt-5 grid md:grid-cols-2 lg:grid-cols-3">
+      <div className="gird-cols-1 grid md:grid-cols-2 lg:grid-cols-3">
         {app.tokens.map((k) => (
-          <Card key={k.id} className="w-xs">
+          <Card key={k.id} className="mt-5 w-xs">
             <CardHeader>
               <CardTitle className="text-sm break-all">{k.token}</CardTitle>
               <CardDescription className="text-xs">
