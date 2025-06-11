@@ -75,7 +75,7 @@ export async function createAppToken(
     });
 
     revalidatePath(`/teams/${team.id}/apps/${appId}`);
-    return apiKey != null;
+    if (apiKey != null) return apiKey;
   } catch {
     return false;
   }
