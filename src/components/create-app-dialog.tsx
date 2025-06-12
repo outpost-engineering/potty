@@ -84,7 +84,7 @@ export function CreateAppDialog(props: Props) {
           throw new Error("Team creation failed.");
         }
 
-        router.push(`/${props.team.slug}/${data.name}`);
+        router.push(`/space/${props.team.slug}/${data.name}`);
       },
       {
         loading: `Creating your app...`,

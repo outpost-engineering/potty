@@ -75,7 +75,7 @@ export function CreateTeamDialog(props: Props) {
         }
 
         props.onOpenChange(false);
-        router.push(`/${data.slug}`);
+        router.push(`/space/${data.slug}`);
       },
       {
         loading: `Creating your team...`,
