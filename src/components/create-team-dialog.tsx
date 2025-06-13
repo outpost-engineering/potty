@@ -94,7 +94,7 @@ export function CreateTeamDialog(props: Props) {
               <DialogTitle>Create a team</DialogTitle>
               <DialogDescription>
                 Start collaborating with your team to collect bug reports,
-                feature requests, and user feedback — all in one place.
+                feature requests, and user impressions — all in one place.
               </DialogDescription>
             </DialogHeader>
             <DialogBody className="space-y-8">

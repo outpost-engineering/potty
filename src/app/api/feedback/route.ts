@@ -8,7 +8,7 @@ import {
   unauthorized,
 } from "~/libs/server";
 
-const feedbackSchema = z.object({
+const impressionSchema = z.object({
   note: z
     .string()
     .min(1, "Note is required")
@@ -44,13 +44,13 @@ export async function POST(req: NextRequest) {
       return forbidden("Token expired");
     }
 
-    const parsed = await getBody(req, feedbackSchema);
+    const parsed = await getBody(req, impressionSchema);
 
     if (!parsed.data) {
       return parsed.response;
     }
 
-    await prisma.feedback.create({
+    await prisma.impression.create({
       data: {
         ...parsed.data,
         aid: appToken.aid,

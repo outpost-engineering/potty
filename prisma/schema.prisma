@@ -115,8 +115,8 @@ model App {
 
     team Team @relation(fields: [tid], references: [id], onDelete: Cascade)
 
-    tokens   AppToken[]
-    Feedback Feedback[]
+    tokens     AppToken[]
+    impression Impression[]
 
     @@unique([tid, name])
 }
@@ -136,7 +136,7 @@ model AppToken {
     @@index([token])
 }
 
-model Feedback {
+model Impression {
     id      String  @id @default(cuid())
     aid     String
     url     String?
