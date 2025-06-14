@@ -5,13 +5,13 @@ import {
   Cog8ToothIcon,
   HomeIcon,
   PlusCircleIcon,
-  QuestionMarkCircleIcon,
 } from "@heroicons/react/24/outline";
 import { User } from "next-auth";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { logout } from "~/libs/actions";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
+import { Button } from "./button";
 import { CreateTeamDialog } from "./create-team-dialog";
 import {
   DropdownMenu,
@@ -42,13 +42,18 @@ export function ProfileDropdown(props: Props) {
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger className="outline-none">
-          <Avatar className="size-10 cursor-pointer select-none">
-            <AvatarImage src={user.image!} alt="Picture" />
-            <AvatarFallback className="text-lg">
-              {user.name!.charAt(0)}
-            </AvatarFallback>
-          </Avatar>
+        <DropdownMenuTrigger className="outline-none" asChild>
+          <Button
+            variant="outline"
+            className="flex size-8 items-center justify-center rounded-full p-0"
+          >
+            <Avatar className="size-8 cursor-pointer select-none">
+              <AvatarImage src={user.image!} alt="Picture" />
+              <AvatarFallback className="text-lg">
+                {user.name!.charAt(0)}
+              </AvatarFallback>
+            </Avatar>
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
           className="w-64"
@@ -87,19 +92,12 @@ export function ProfileDropdown(props: Props) {
             <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <Link href="/">
-              <DropdownMenuItem>
-                Home Page
-                <HomeIcon className="size-5" />
-              </DropdownMenuItem>
-            </Link>
+          <Link href="/">
             <DropdownMenuItem>
-              Support
-              <QuestionMarkCircleIcon className="size-5" />
+              Home Page
+              <HomeIcon className="size-5" />
             </DropdownMenuItem>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator />
+          </Link>
           <DropdownMenuItem variant="destructive" onClick={logout}>
             Log Out
             <ArrowLeftStartOnRectangleIcon className="size-5" />
