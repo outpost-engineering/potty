@@ -1,15 +1,15 @@
 import { notFound } from "next/navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/avatar";
-import { Button } from "~/components/button";
+import { CreateAppTokenDialog } from "~/components/create-app-token-dialog";
+import { RevokeTokenButton } from "~/components/revoke-token-button";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
+import { Button } from "~/components/ui/button";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/card";
-import { CreateAppTokenDialog } from "~/components/create-app-token-dialog";
-import { RevokeTokenButton } from "~/components/revoke-token-button";
+} from "~/components/ui/card";
 import { prisma } from "~/libs/prisma";
 import { revokeAppToken } from "./actions";
 

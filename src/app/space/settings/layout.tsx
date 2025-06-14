@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PropsWithChildren } from "react";
-import { Input } from "~/components/input";
+import { Input } from "~/components/ui/input";
 
 export default function MySettingsLayout(props: PropsWithChildren) {
   const pathname = usePathname();

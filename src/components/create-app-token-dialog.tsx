@@ -10,8 +10,8 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { createAppToken } from "~/app/space/[team]/[app]/actions";
 
-import { Button } from "./button";
-import { Datepicker } from "./datepicker";
+import { Button } from "./ui/button";
+import { Datepicker } from "./ui/datepicker";
 import {
   Dialog,
   DialogBody,
@@ -22,7 +22,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./dialog";
+} from "./ui/dialog";
 import {
   Form,
   FormControl,
@@ -30,7 +30,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./form";
+} from "./ui/form";
 
 const schema = z.object({
   expiresAt: z.date().optional(),

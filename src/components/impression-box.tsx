@@ -6,10 +6,10 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { addImpression } from "~/libs/actions";
-import { Button } from "./button";
-import { Form, FormField, FormItem, FormMessage } from "./form";
-import { Popover, PopoverContent, PopoverTrigger } from "./popover";
-import { Textarea } from "./textarea";
+import { Button } from "./ui/button";
+import { Form, FormField, FormItem, FormMessage } from "./ui/form";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Textarea } from "./ui/textarea";
 
 const impressionSchema = z.object({
   note: z

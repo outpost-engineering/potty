@@ -10,9 +10,9 @@ import { User } from "next-auth";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { logout } from "~/libs/actions";
-import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
-import { Button } from "./button";
 import { CreateTeamDialog } from "./create-team-dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,7 +22,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "./dropdown-menu";
+} from "./ui/dropdown-menu";
 
 interface Props {
   user: User;

@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { createTeam, isTeamSlugAvailable } from "~/app/space/[team]/actions";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogBody,
@@ -16,7 +16,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "./dialog";
+} from "./ui/dialog";
 import {
   Form,
   FormControl,
@@ -25,8 +25,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./form";
-import { Input } from "./input";
+} from "./ui/form";
+import { Input } from "./ui/input";
 
 interface Props {
   open: boolean;

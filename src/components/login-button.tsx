@@ -1,6 +1,6 @@
 import { ComponentType, SVGProps } from "react";
 import { signIn } from "~/libs/auth";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 
 interface Props {
   icon: ComponentType<SVGProps<SVGSVGElement>>;

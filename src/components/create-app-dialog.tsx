@@ -11,7 +11,7 @@ import {
   createApp,
   isAppNameAvailable,
 } from "~/app/space/[team]/[app]/actions";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogBody,
@@ -22,7 +22,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./dialog";
+} from "./ui/dialog";
 import {
   Form,
   FormControl,
@@ -30,8 +30,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./form";
-import { Input } from "./input";
+} from "./ui/form";
+import { Input } from "./ui/input";
 
 const createAppSchema = z.object({
   name: z

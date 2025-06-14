@@ -3,7 +3,7 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogBody,
@@ -12,7 +12,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "./dialog";
+} from "./ui/dialog";
 
 interface Props {
   onRevoke: () => Promise<void>;

@@ -1,14 +1,14 @@
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/card";
-import { ScrollArea, ScrollBar } from "~/components/scroll-area";
+} from "~/components/ui/card";
+import { ScrollArea, ScrollBar } from "~/components/ui/scroll-area";
 import { auth } from "~/libs/auth";
 import { prisma } from "~/libs/prisma";
 

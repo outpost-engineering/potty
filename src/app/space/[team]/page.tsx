@@ -2,16 +2,16 @@ import { GlobeAltIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/avatar";
-import { Button } from "~/components/button";
+import { CreateAppDialog } from "~/components/create-app-dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
+import { Button } from "~/components/ui/button";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/card";
-import { CreateAppDialog } from "~/components/create-app-dialog";
+} from "~/components/ui/card";
 import { prisma } from "~/libs/prisma";
 
 interface Params {

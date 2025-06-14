@@ -1,6 +1,11 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { AppleIcon } from "~/components/icons/apple";
+import { GithubIcon } from "~/components/icons/github";
+import { GoogleIcon } from "~/components/icons/google";
+import { MicrosoftIcon } from "~/components/icons/microsoft";
+import { LoginButton } from "~/components/login-button";
 import {
   Card,
   CardContent,
@@ -8,12 +13,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/card";
-import { AppleIcon } from "~/components/icons/apple";
-import { GithubIcon } from "~/components/icons/github";
-import { GoogleIcon } from "~/components/icons/google";
-import { MicrosoftIcon } from "~/components/icons/microsoft";
-import { LoginButton } from "~/components/login-button";
+} from "~/components/ui/card";
 import { auth } from "~/libs/auth";
 
 interface SearchParams {
