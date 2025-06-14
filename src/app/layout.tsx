@@ -11,7 +11,7 @@ import "~/styles/globals.css";
 export const metadata: Metadata = {
   title: {
     default: "Potty",
-    template: `%s — Potty`,
+    template: `%s - Potty`,
   },
   description:
     "Potty helps teams collect and prioritize feedback — bug reports, feature requests, and more — all in one place.",

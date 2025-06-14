@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
@@ -10,6 +11,10 @@ import {
 } from "~/components/ui/card";
 import { auth } from "~/libs/auth";
 import { prisma } from "~/libs/prisma";
+
+export const metadata: Metadata = {
+  title: "Teams - Account Settings",
+};
 
 export default async function TeamsSettings() {
   const session = await auth();

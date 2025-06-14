@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { Avatar, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import {
@@ -9,6 +10,10 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { auth } from "~/libs/auth";
+
+export const metadata: Metadata = {
+  title: "General - Account Settings",
+};
 
 export default async function GeneralSettings() {
   const session = await auth();
