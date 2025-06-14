@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { cn } from "~/utils/cn";
+import { cn } from "~/libs/cn";
 import { PottyLogo } from "../potty-logo";
 
 function Card({ className, ...props }: React.ComponentProps<"div">) {

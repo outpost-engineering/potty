@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { cn } from "~/utils/cn";
+import { cn } from "~/libs/cn";
 
 interface RippleInterface {
   id: number;

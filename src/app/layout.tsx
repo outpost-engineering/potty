@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react";
 import { ThemeProvider } from "~/components/theme-provider";
 import { Toaster } from "~/components/ui/sonner";
 import { fontSans } from "~/config/fonts";
-import { cn } from "~/utils/cn";
+import { cn } from "~/libs/cn";
 
 import "~/styles/globals.css";
 
