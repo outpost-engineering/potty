@@ -5,16 +5,16 @@
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "src/app/globals.css",
+    "css": "styles/globals.css",
     "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
   },
   "aliases": {
-    "components": "~/common",
-    "utils": "~/utils/shadcn",
-    "ui": "~/common",
-    "lib": "~/lib",
+    "components": "~/components",
+    "utils": "~/libs/utils",
+    "ui": "~/components/ui",
+    "lib": "~/libs",
     "hooks": "~/hooks"
   },
   "iconLibrary": "heroicons"
