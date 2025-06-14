@@ -1,9 +1,8 @@
-import { MegaphoneIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { PropsWithChildren } from "react";
 import { ActiveLink } from "~/components/active-link";
-import { Button } from "~/components/button";
+import { ImpressionBox } from "~/components/impression-box";
 import { ProfileDropdown } from "~/components/profile-dropdown";
 import UserManuelDropdown from "~/components/user-manuel-dropdown";
 import { auth } from "~/libs/auth";
@@ -23,12 +22,7 @@ export default async function SpaceLayout(props: PropsWithChildren) {
             <div className="bg-primary size-8 rounded-full"></div>
           </Link>
           <div className="flex items-center gap-3">
-            <Button
-              variant="outline"
-              className="flex size-8 items-center justify-center rounded-full p-0"
-            >
-              <MegaphoneIcon className="size-5" />
-            </Button>
+            <ImpressionBox />
             <UserManuelDropdown />
             <ProfileDropdown user={session.user!} />
           </div>
@@ -48,6 +42,7 @@ export default async function SpaceLayout(props: PropsWithChildren) {
           </ActiveLink>
         </div>
       </header>
+      <div>{props.children}</div>
     </main>
   );
 }
