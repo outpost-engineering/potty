@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import * as React from "react";
 import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker";
-import { cn } from "~/libs/cn";
+import { cn } from "~/libs/utils";
 import { Button } from "./button";
 
 function Calendar({

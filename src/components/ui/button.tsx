@@ -2,7 +2,7 @@
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { useRef } from "react";
-import { cn } from "~/libs/cn";
+import { cn } from "~/libs/utils";
 import { Ripple, RippleRef } from "../animation/ripple";
 
 const buttonVariants = cva(

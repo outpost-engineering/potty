@@ -2,7 +2,7 @@
 
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-import { cn } from "~/libs/cn";
+import { cn } from "~/libs/utils";
 
 function DropdownMenu({
   ...props
