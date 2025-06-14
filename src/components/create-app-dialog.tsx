@@ -104,7 +104,7 @@ export function CreateAppDialog(props: Props) {
               <DialogTitle>Create an app</DialogTitle>
               <DialogDescription>
                 Connect your app and give your users a place to report bugs,
-                suggest features, and share feedback.
+                suggest features, and share impressions.
               </DialogDescription>
             </DialogHeader>
             <DialogBody className="space-y-8">
