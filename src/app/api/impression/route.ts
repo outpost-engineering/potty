@@ -31,16 +31,16 @@ export async function POST(req: NextRequest) {
       return unauthorized("Token is missing");
     }
 
-    const appToken = await prisma.appToken.findUnique({
+    const potToken = await prisma.potToken.findUnique({
       where: { token },
-      include: { app: true },
+      include: { pot: true },
     });
 
-    if (!appToken) {
+    if (!potToken) {
       return forbidden("Invalid token");
     }
 
-    if (appToken.expiresAt && appToken.expiresAt < new Date()) {
+    if (potToken.expiresAt && potToken.expiresAt < new Date()) {
       return forbidden("Token expired");
     }
 
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     await prisma.impression.create({
       data: {
         ...parsed.data,
-        aid: appToken.aid,
+        pid: potToken.pid,
       },
     });
 

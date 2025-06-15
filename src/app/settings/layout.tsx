@@ -18,8 +18,8 @@ export default function AccountSettingsLayout(props: PropsWithChildren) {
             href: "/settings/authentication",
           },
           {
-            label: "Teams",
-            href: "/settings/teams",
+            label: "Kitchens",
+            href: "/settings/kitchens",
           },
         ]}
       >

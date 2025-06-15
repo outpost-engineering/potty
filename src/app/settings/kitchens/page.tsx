@@ -13,10 +13,10 @@ import { auth } from "~/libs/auth";
 import { prisma } from "~/libs/prisma";
 
 export const metadata: Metadata = {
-  title: "Teams - Account Settings",
+  title: "Kitchens - Account Settings",
 };
 
-export default async function TeamsSettings() {
+export default async function KitchensSettings() {
   const session = await auth();
 
   if (!session) {
@@ -25,35 +25,35 @@ export default async function TeamsSettings() {
 
   const memberships = await prisma.membership.findMany({
     where: { uid: session.user!.id },
-    include: { team: true },
+    include: { kitchen: true },
   });
 
   return (
     <div className="space-y-5">
       {memberships.length == 0 && (
         <div className="text-muted-foreground w-full text-center">
-          Looks like you&apos;re flying solo — create or join a team to get
-          started.
+          You&apos;re not in any kitchens yet — create or join one to start
+          cooking up some feedback. started.
         </div>
       )}
       {memberships.map((m) => (
-        <Card key={m.tid}>
+        <Card key={m.kid}>
           <CardHeader className="flex items-center gap-2">
             <Avatar className="size-12 rounded-none">
-              <AvatarImage src={m.team.picture!} />
+              <AvatarImage src={m.kitchen.image!} />
               <AvatarFallback className="rounded-md text-lg">
-                {m.team.name.charAt(0).toUpperCase()}
+                {m.kitchen.name.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <div>
               <CardTitle className="flex flex-row items-center gap-2">
-                <Link href={`/${m.team.slug}`} className="hover:underline">
-                  {m.team.name}
+                <Link href={`/${m.kitchen.slug}`} className="hover:underline">
+                  {m.kitchen.name}
                 </Link>
                 <Badge variant="secondary">{m.role}</Badge>
               </CardTitle>
               <CardDescription className="line-clamp-1">
-                {m.team.description ?? "No description"}
+                {m.kitchen.description ?? "No description"}
               </CardDescription>
             </div>
           </CardHeader>

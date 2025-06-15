@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import { DashboardLayout } from "~/components/layouts/dashboard-layout";
-import { getTeamMenu } from "~/content/menu";
+import { getKitchenMenu } from "~/content/menu";
 import { prisma } from "~/libs/prisma";
 
 interface Params {
-  team: string;
+  kitchen: string;
 }
 
 interface Props {
@@ -12,18 +12,18 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default async function TeamLayout(props: Props) {
+export default async function KitchenLayout(props: Props) {
   const params = await props.params;
-  const team = await prisma.team.findUnique({
-    where: { slug: params.team },
+  const kitchen = await prisma.kitchen.findUnique({
+    where: { slug: params.kitchen },
   });
 
-  if (!team) {
+  if (!kitchen) {
     return notFound();
   }
 
   return (
-    <DashboardLayout menu={getTeamMenu(team)} team={team}>
+    <DashboardLayout menu={getKitchenMenu(kitchen)} kitchen={kitchen}>
       {props.children}
     </DashboardLayout>
   );

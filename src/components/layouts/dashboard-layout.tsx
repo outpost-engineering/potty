@@ -1,5 +1,5 @@
 import { SlashIcon } from "@heroicons/react/24/outline";
-import { Team } from "@prisma/client";
+import { Kitchen } from "@prisma/client";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -13,7 +13,7 @@ import UserManuelDropdown from "../user-manuel-dropdown";
 interface Props {
   children: React.ReactNode;
   menu: MenuItem[];
-  team?: Team;
+  kitchen?: Kitchen;
 }
 
 export async function DashboardLayout(props: Props) {
@@ -31,15 +31,17 @@ export async function DashboardLayout(props: Props) {
             <Link href="/">
               <div className="bg-primary size-6"></div>
             </Link>
-            {props.team && (
+            {props.kitchen && (
               <>
                 <SlashIcon className="text-muted size-7" />
                 <Link
-                  href={`/${props.team.slug}`}
+                  href={`/${props.kitchen.slug}`}
                   className="hover:bg-accent flex items-center gap-2 rounded px-2 py-1 transition-all duration-150"
                 >
                   <div className="bg-primary size-6"></div>
-                  <p className="text-foreground text-sm">{props.team.name}</p>
+                  <p className="text-foreground text-sm">
+                    {props.kitchen.name}
+                  </p>
                 </Link>
                 <p></p>
               </>

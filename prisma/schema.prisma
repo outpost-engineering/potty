@@ -8,6 +8,7 @@ generator client {
 }
 
 model User {
+    // Fields required and structured according to Auth.js adapter expectations
     id            String    @id @default(cuid())
     name          String?
     email         String    @unique
@@ -20,10 +21,11 @@ model User {
 
     memberships Membership[]
     invitations Invitation[]
-    appTokens   AppToken[]
+    potTokens   PotToken[]
 }
 
 model Account {
+    // Fields required and structured according to Auth.js adapter expectations
     userId            String
     type              String
     provider          String
@@ -44,12 +46,12 @@ model Account {
     @@id([provider, providerAccountId])
 }
 
-model Team {
+model Kitchen {
     id          String  @id @default(cuid())
     name        String
     slug        String  @unique
     description String?
-    picture     String?
+    image       String?
     website     String?
     location    String?
 
@@ -59,35 +61,35 @@ model Team {
     memberships Membership[]
     invitations Invitation[]
 
-    apps App[]
+    pots Pot[]
 }
 
 model Membership {
     uid  String
-    tid  String
+    kid  String
     role Role
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    user User @relation(fields: [uid], references: [id])
-    team Team @relation(fields: [tid], references: [id])
+    chef    User    @relation(fields: [uid], references: [id])
+    kitchen Kitchen @relation(fields: [kid], references: [id])
 
-    @@id([uid, tid])
+    @@id([uid, kid])
 }
 
 model Invitation {
     id      String           @id @default(uuid())
     uid     String
-    tid     String
+    kid     String
     role    Role
     code    String
     status  InvitationStatus @default(Pending)
     created DateTime         @default(now())
     expires DateTime
 
-    user User @relation(fields: [uid], references: [id])
-    team Team @relation(fields: [tid], references: [id])
+    chef    User    @relation(fields: [uid], references: [id])
+    kitchen Kitchen @relation(fields: [kid], references: [id])
 }
 
 enum Role {
@@ -102,43 +104,43 @@ enum InvitationStatus {
     Revoked
 }
 
-model App {
+model Pot {
     id          String  @id @default(cuid())
-    tid         String
+    kid         String
     name        String
     description String?
-    picture     String?
+    image       String?
     website     String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    team Team @relation(fields: [tid], references: [id], onDelete: Cascade)
+    kitchen Kitchen @relation(fields: [kid], references: [id], onDelete: Cascade)
 
-    tokens     AppToken[]
+    tokens     PotToken[]
     impression Impression[]
 
-    @@unique([tid, name])
+    @@unique([kid, name])
 }
 
-model AppToken {
+model PotToken {
     id    String @id @default(cuid())
     token String @unique
-    aid   String
+    pid   String
     uid   String
 
     expiresAt DateTime?
     createdAt DateTime  @default(now())
 
-    app     App  @relation(fields: [aid], references: [id], onDelete: Cascade)
-    creator User @relation(fields: [uid], references: [id], onDelete: Cascade)
+    pot       Pot  @relation(fields: [pid], references: [id], onDelete: Cascade)
+    createdBy User @relation(fields: [uid], references: [id], onDelete: Cascade)
 
     @@index([token])
 }
 
 model Impression {
     id      String  @id @default(cuid())
-    aid     String
+    pid     String
     url     String?
     email   String?
     note    String
@@ -148,5 +150,5 @@ model Impression {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    app App @relation(fields: [aid], references: [id], onDelete: Cascade)
+    pot Pot @relation(fields: [pid], references: [id], onDelete: Cascade)
 }

@@ -27,7 +27,7 @@ interface Props {
 export const metadata: Metadata = {
   title: "Login",
   description:
-    "Log in to Potty to manage impressions, bug reports, and feature requests for your apps and teams.",
+    "Log in to Potty to manage impressions, bug reports, and feature requests.",
 };
 
 export default async function LoginPage(props: Props) {

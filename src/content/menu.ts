@@ -1,4 +1,4 @@
-import { Team } from "@prisma/client";
+import { Kitchen } from "@prisma/client";
 
 export interface MenuItem {
   label: string;
@@ -10,11 +10,11 @@ export const userMenu: MenuItem[] = [
   { label: "Settings", href: "/settings" },
 ];
 
-export function getTeamMenu(team: Team) {
+export function getKitchenMenu(kitchen: Kitchen) {
   return [
-    { label: "Overview", href: `/${team.slug}` },
-    { label: "Apps", href: `/${team.slug}/apps` },
-    { label: "Members", href: `/${team.slug}/members` },
-    { label: "Settings", href: `/${team.slug}/settings` },
+    { label: "Overview", href: `/${kitchen.slug}` },
+    { label: "Pots", href: `/${kitchen.slug}/pots` },
+    { label: "Chefs", href: `/${kitchen.slug}/chefs` },
+    { label: "Settings", href: `/${kitchen.slug}/settings` },
   ] as MenuItem[];
 }
