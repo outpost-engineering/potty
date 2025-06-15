@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 export default async function LoginPage(props: Props) {
   const session = await auth();
   const search = await props.searchParams;
-  const redirectUrl = search.redirect ?? "/space";
+  const redirectUrl = search.redirect ?? "/";
 
   if (session) {
     redirect("/");
