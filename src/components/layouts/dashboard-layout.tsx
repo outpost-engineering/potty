@@ -1,3 +1,5 @@
+import { SlashIcon } from "@heroicons/react/24/outline";
+import { Team } from "@prisma/client";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -11,6 +13,7 @@ import UserManuelDropdown from "../user-manuel-dropdown";
 interface Props {
   children: React.ReactNode;
   menu: MenuItem[];
+  team?: Team;
 }
 
 export async function DashboardLayout(props: Props) {
@@ -24,9 +27,24 @@ export async function DashboardLayout(props: Props) {
     <main className="min-h-screen w-full">
       <header className="bg-card sticky top-0 z-40 w-full px-10 py-4 pb-0">
         <div className="flex w-full items-center justify-between">
-          <Link href="/">
-            <div className="bg-primary size-8 rounded-full"></div>
-          </Link>
+          <div className="flex items-center">
+            <Link href="/">
+              <div className="bg-primary size-6"></div>
+            </Link>
+            {props.team && (
+              <>
+                <SlashIcon className="text-muted size-7" />
+                <Link
+                  href={`/${props.team.slug}`}
+                  className="hover:bg-accent flex items-center gap-2 rounded px-2 py-1 transition-all duration-150"
+                >
+                  <div className="bg-primary size-6"></div>
+                  <p className="text-foreground text-sm">{props.team.name}</p>
+                </Link>
+                <p></p>
+              </>
+            )}
+          </div>
           <div className="flex items-center gap-3">
             <ImpressionBox />
             <UserManuelDropdown />
