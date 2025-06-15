@@ -14,6 +14,7 @@ interface Props {
   children: React.ReactNode;
   menu: MenuItem[];
   kitchen?: Kitchen;
+  minimal?: boolean;
 }
 
 export async function DashboardLayout(props: Props) {
@@ -25,7 +26,10 @@ export async function DashboardLayout(props: Props) {
 
   return (
     <main className="min-h-screen w-full">
-      <header className="bg-card sticky top-0 z-40 w-full px-10 py-4 pb-0">
+      <header
+        data-minimal={props.minimal ? true : undefined}
+        className="bg-card data-[minimal]:bg-background sticky top-0 z-40 w-full px-10 py-4 pb-0"
+      >
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center">
             <Link href="/">

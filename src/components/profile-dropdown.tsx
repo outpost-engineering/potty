@@ -78,7 +78,7 @@ export function ProfileDropdown(props: Props) {
               <Cog8ToothIcon className="size-5" />
             </DropdownMenuItem>
           </Link>
-          <Link href="/kitchen/new">
+          <Link href="/kitchen/create">
             <DropdownMenuItem>
               Create a kitchen
               <PlusCircleIcon className="size-5" />
