@@ -1,8 +1,9 @@
 "use client";
 import {
   ArrowLeftStartOnRectangleIcon,
-  BriefcaseIcon,
+  ArrowUpRightIcon,
   Cog8ToothIcon,
+  HomeIcon,
   PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import { User } from "next-auth";
@@ -67,11 +68,11 @@ export function ProfileDropdown(props: Props) {
         <DropdownMenuGroup>
           <Link href="space">
             <DropdownMenuItem>
-              Dashboard
-              <BriefcaseIcon className="size-5" />
+              Overview
+              <HomeIcon className="size-5" />
             </DropdownMenuItem>
           </Link>
-          <Link href="/space/settings">
+          <Link href="/settings">
             <DropdownMenuItem>
               Account Settings
               <Cog8ToothIcon className="size-5" />
@@ -90,6 +91,12 @@ export function ProfileDropdown(props: Props) {
           <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
+        <Link href="/home" target="_blank">
+          <DropdownMenuItem>
+            Home page
+            <ArrowUpRightIcon className="size-4" />
+          </DropdownMenuItem>
+        </Link>
         <DropdownMenuItem variant="destructive" onClick={logout}>
           Log Out
           <ArrowLeftStartOnRectangleIcon className="size-5" />

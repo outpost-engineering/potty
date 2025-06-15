@@ -5,10 +5,16 @@ import { auth } from "~/libs/auth";
 export async function middleware(req: NextRequest) {
   const session = await auth();
 
-  if (session?.user && req.nextUrl.pathname === "/") {
+  if (req.nextUrl.pathname === "/") {
+    if (session?.user) {
+      const url = req.nextUrl.clone();
+      url.pathname = "/overview";
+      return NextResponse.redirect(url);
+    }
+
     const url = req.nextUrl.clone();
-    url.pathname = "/overview";
-    return NextResponse.redirect(url);
+    url.pathname = "/home";
+    return NextResponse.rewrite(url);
   }
 
   return NextResponse.next();
