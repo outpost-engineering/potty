@@ -143,9 +143,10 @@ export async function updateDisplayName(formData: FormData) {
       data: { name },
     });
 
+    // Revalidate the settings page to show the updated name
     revalidatePath("/settings");
 
-    return { success: true };
+    return { success: true, name };
   } catch (error) {
     console.error("Failed to update display name:", error);
     return { error: "Failed to update display name" };
