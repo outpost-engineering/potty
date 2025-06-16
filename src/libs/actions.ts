@@ -18,6 +18,14 @@ const createKitchenSchema = z.object({
     .regex(/^[a-z0-9-]+$/),
 });
 
+const updateDisplayNameSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Name is required")
+    .max(32, "Name must be 32 characters or fewer")
+    .regex(/^[a-zA-Z0-9\s-]+$/, "Name can only contain letters, numbers, spaces, and hyphens"),
+});
+
 export async function logout() {
   await signOut({ redirectTo: "/" });
 }
@@ -110,4 +118,38 @@ export async function createKitchen(name: string, slug: string) {
   } catch {
     return false;
   }
+}
+
+export async function updateDisplayName(formData: FormData) {
+  const name = formData.get("name") as string;
+  
+  const result = updateDisplayNameSchema.safeParse({ name });
+  if (!result.success) {
+    return { error: result.error.issues[0].message };
+  }
+
+  try {
+    await prisma.user.update({
+      where: { id: (await auth())?.user?.id },
+      data: { name: result.data.name },
+    });
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to update display name:", error);
+    return { error: "Failed to update display name" };
+  }
+}
+
+export async function getSession() {
+  const session = await auth();
+  if (!session) {
+    return null;
+  }
+  return {
+    user: {
+      name: session.user?.name,
+      image: session.user?.image,
+      email: session.user?.email,
+    }
+  };
 }
