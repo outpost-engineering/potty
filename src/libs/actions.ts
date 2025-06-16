@@ -79,35 +79,32 @@ export async function isKitchenSlugAvailable(slug: string) {
   }
 }
 
-export async function createKitchen(name: string, slug: string) {
+export async function startKitchenCheckout(
+  name: string,
+  slug: string,
+): Promise<string | null> {
   try {
-    const session = await auth();
-
-    if (!session) {
-      return false;
-    }
-
     const result = createKitchenSchema.safeParse({ name, slug });
+    if (!result.success) return null;
 
-    if (!result.success) {
-      return false;
-    }
-
-    const kitchen = await prisma.kitchen.create({
-      data: {
-        name,
-        slug,
-        memberships: {
-          create: {
-            uid: session.user!.id!,
-            role: "Owner",
-          },
-        },
+    const res = await fetch(
+      `${process.env.BASE_URL}/api/stripe/create-checkout-session`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          name,
+          slug,
+          description: "",
+        }),
       },
-    });
+    );
 
-    return kitchen !== null;
+    const data = await res.json();
+
+    if (!res.ok || !data.url) return null;
+
+    return data.url;
   } catch {
-    return false;
+    return null;
   }
 }
