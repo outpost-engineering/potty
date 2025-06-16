@@ -3,9 +3,9 @@ import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import {
-  AUTH_COOKIE,
-  CALLBACK_URL_COOKIE,
-  CSRF_TOKEN_COOKIE,
+    AUTH_COOKIE,
+    CALLBACK_URL_COOKIE,
+    CSRF_TOKEN_COOKIE,
 } from "~/config/cookies";
 import { prisma } from "./prisma";
 
@@ -30,11 +30,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
         token.name = user.name;
       }
+      
+      // Handle session updates
+      if (trigger === "update" && session?.name) {
+        token.name = session.name;
+      }
+      
       return token;
     },
     async session({ session, token }) {
