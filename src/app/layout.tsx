@@ -1,6 +1,7 @@
 import { Metadata, Viewport } from "next";
 import { PropsWithChildren } from "react";
 
+import { AuthProvider } from "~/components/providers/session-provider";
 import { ThemeProvider } from "~/components/theme-provider";
 import { Toaster } from "~/components/ui/sonner";
 import { fontSans } from "~/config/fonts";
@@ -58,8 +59,10 @@ export default async function RootLayout(props: PropsWithChildren) {
           forcedTheme="dark"
           disableTransitionOnChange
         >
-          {props.children}
-          <Toaster />
+          <AuthProvider>
+            {props.children}
+            <Toaster />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
