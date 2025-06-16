@@ -1,15 +1,16 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { updateDisplayName } from "~/libs/actions";
@@ -25,6 +26,7 @@ export function DisplayNameForm({ user }: DisplayNameFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const { update: updateSession } = useSession();
 
   const validateName = (value: string) => {
     if (!value) {
@@ -57,10 +59,13 @@ export function DisplayNameForm({ user }: DisplayNameFormProps) {
     if (result.error) {
       toast.error(result.error);
     } else {
-      toast.success("Display name updated successfully. Please log in again to see the change.");
-      // Log out and redirect to login for a fresh session
-      // await signOut({ redirect: false });
-      // router.push("/login");
+      // Update the session with the new name
+      await updateSession({
+        name: result.name,
+      });
+      
+      toast.success("Display name updated successfully");
+      router.refresh();
     }
   };
 
