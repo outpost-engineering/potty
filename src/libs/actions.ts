@@ -138,7 +138,7 @@ export async function updateDisplayName(formData: FormData) {
       return { error: result.error.errors[0].message };
     }
 
-    const updatedUser = await prisma.user.update({
+    await prisma.user.update({
       where: { id: session.user.id },
       data: { name },
     });
