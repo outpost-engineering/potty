@@ -3,9 +3,9 @@ import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import {
-    AUTH_COOKIE,
-    CALLBACK_URL_COOKIE,
-    CSRF_TOKEN_COOKIE,
+  AUTH_COOKIE,
+  CALLBACK_URL_COOKIE,
+  CSRF_TOKEN_COOKIE,
 } from "~/config/cookies";
 import { prisma } from "./prisma";
 
