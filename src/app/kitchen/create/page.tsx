@@ -10,6 +10,10 @@ import { GeneralStep } from "./general-step";
 interface KitchenData {
   name: string;
   slug: string;
+  description?: string;
+  image?: string;
+  website?: string;
+  location?: string;
 }
 
 export default function CreateKitchen() {
@@ -27,6 +31,10 @@ export default function CreateKitchen() {
         const stripeUrl = await startKitchenCheckout(
           kitchen.name,
           kitchen.slug,
+          kitchen.description,
+          kitchen.image,
+          kitchen.website,
+          kitchen.location,
         );
         if (!stripeUrl) throw new Error("Failed to create checkout session");
 

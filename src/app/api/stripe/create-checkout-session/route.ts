@@ -1,19 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "~/libs/auth";
+import { z } from "zod";
+import { getBody } from "~/libs/server";
 import { stripe } from "~/libs/stripe";
+
+const createKitchenSchema = z.object({
+  name: z.string().min(1).max(50),
+  slug: z
+    .string()
+    .min(1)
+    .max(50)
+    .regex(/^[a-z0-9-]+$/),
+  description: z.string().max(255).optional(),
+  image: z.string().url().optional(),
+  website: z.string().url().optional(),
+  location: z.string().max(100).optional(),
+  email: z.string().email(),
+});
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await auth();
-    if (!session?.user?.email || !session.user.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    console.log("in checkout session");
+    const parsed = await getBody(req, createKitchenSchema);
+    if (!parsed.data) return parsed.response;
 
-    const { name, slug, description } = await req.json();
+    console.log("req data:", parsed.data);
 
-    const customer = await stripe.customers.create({
-      email: session.user.email,
-    });
+    const { name, slug, description, image, website, location, email } =
+      parsed.data;
+
+    const customer = await stripe.customers.create({ email });
 
     const subscription = await stripe.subscriptions.create({
       customer: customer.id,
@@ -46,8 +61,11 @@ export async function POST(req: NextRequest) {
       metadata: {
         name,
         slug,
-        description,
-        userId: session.user.id,
+        description: description || "",
+        image: image || "",
+        website: website || "",
+        location: location || "",
+        email,
         customerId: customer.id,
         subscriptionId: subscription.id,
         usageItemId: usageItem.id,
