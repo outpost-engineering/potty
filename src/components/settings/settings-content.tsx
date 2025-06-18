@@ -3,11 +3,11 @@
 import { Avatar, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 } from "~/components/ui/card";
 import { DisplayNameForm } from "./display-name-form";
 
@@ -40,7 +40,7 @@ export function SettingsContent({ user }: SettingsContentProps) {
           </p>
         </CardFooter>
       </Card>
-      <DisplayNameForm user={{ name: user.name }} />
+      <DisplayNameForm user={user} />
       <Card className="border-destructive/40 mt-8 w-full pb-0">
         <CardHeader>
           <CardTitle>Delete Account</CardTitle>
