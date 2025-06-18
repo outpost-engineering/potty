@@ -61,15 +61,15 @@ export function DisplayNameForm() {
       const formData = new FormData();
       formData.append("name", data.name);
 
-      const result = await updateDisplayName(formData);
+      const success = await updateDisplayName(formData);
 
-      if (result.error) {
-        toast.error(result.error);
+      if (!success) {
+        toast.error("Failed to update display name");
         return;
       }
 
       await updateSession({
-        name: result.name,
+        name: data.name,
       });
       
       toast.success("Display name updated successfully");
