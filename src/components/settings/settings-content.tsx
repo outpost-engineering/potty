@@ -40,7 +40,7 @@ export function SettingsContent({ user }: SettingsContentProps) {
           </p>
         </CardFooter>
       </Card>
-      <DisplayNameForm user={user} />
+      <DisplayNameForm />
       <Card className="border-destructive/40 mt-8 w-full pb-0">
         <CardHeader>
           <CardTitle>Delete Account</CardTitle>
