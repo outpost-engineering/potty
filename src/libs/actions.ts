@@ -125,17 +125,17 @@ export async function updateDisplayName(formData: FormData) {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return { error: "Not authenticated" };
+      return false;
     }
 
     const name = formData.get("name") as string;
     if (!name) {
-      return { error: "Name is required" };
+      return false;
     }
 
     const result = updateDisplayNameSchema.safeParse({ name });
     if (!result.success) {
-      return { error: result.error.errors[0].message };
+      return false;
     }
 
     await prisma.user.update({
@@ -146,23 +146,9 @@ export async function updateDisplayName(formData: FormData) {
     // Revalidate the settings page to show the updated name
     revalidatePath("/settings");
 
-    return { success: true, name };
+    return true;
   } catch (error) {
     console.error("Failed to update display name:", error);
-    return { error: "Failed to update display name" };
+    return false;
   }
-}
-
-export async function getSession() {
-  const session = await auth();
-  if (!session) {
-    return null;
-  }
-  return {
-    user: {
-      name: session.user?.name,
-      image: session.user?.image,
-      email: session.user?.email,
-    }
-  };
 }
