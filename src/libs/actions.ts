@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { auth, signOut } from "./auth";
 import { prisma } from "./prisma";
@@ -16,6 +17,14 @@ const createKitchenSchema = z.object({
     .min(1)
     .max(50)
     .regex(/^[a-z0-9-]+$/),
+});
+
+const updateDisplayNameSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Name is required")
+    .max(32, "Name must be 32 characters or fewer")
+    .regex(/^[a-zA-Z0-9\s-]+$/, "Name can only contain letters, numbers, spaces, and hyphens"),
 });
 
 export async function logout() {
@@ -108,6 +117,38 @@ export async function createKitchen(name: string, slug: string) {
 
     return kitchen !== null;
   } catch {
+    return false;
+  }
+}
+
+export async function updateDisplayName(formData: FormData) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return false;
+    }
+
+    const name = formData.get("name") as string;
+    if (!name) {
+      return false;
+    }
+
+    const result = updateDisplayNameSchema.safeParse({ name });
+    if (!result.success) {
+      return false;
+    }
+
+    await prisma.user.update({
+      where: { id: session.user.id },
+      data: { name },
+    });
+
+    // Revalidate the settings page to show the updated name
+    revalidatePath("/settings");
+
+    return true;
+  } catch (error) {
+    console.error("Failed to update display name:", error);
     return false;
   }
 }
