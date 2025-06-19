@@ -7,6 +7,7 @@ export const config = {
 };
 
 export async function POST(req: NextRequest) {
+  console.log("WEBHOOK");
   const sig = req.headers.get("stripe-signature")!;
   const rawBody = await req.arrayBuffer();
   let event;
@@ -21,35 +22,57 @@ export async function POST(req: NextRequest) {
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
 
-      const subscriptionId = session.subscription as string;
-      const customerId = session.customer as string;
+      const pendingKitchenId = session.metadata?.pendingKitchenId;
+      if (!pendingKitchenId) {
+        console.error("Missing pendingKitchenId in metadata.");
+        return new Response("Missing metadata", { status: 400 });
+      }
 
-      // Attach metered price item to subscription
-      const usagePriceId = process.env.STRIPE_USAGE_PRICE_ID!; // $1.50 per 50k feedbacks
-
-      const usageItem = await stripe.subscriptionItems.create({
-        subscription: subscriptionId,
-        price: usagePriceId,
+      const pending = await prisma.pendingKitchen.findUnique({
+        where: { id: pendingKitchenId },
       });
+      if (!pending) {
+        console.error("Pending kitchen not found:", pendingKitchenId);
+        return new Response("Not found", { status: 400 });
+      }
 
-      await prisma.kitchen.create({
+      const existing = await prisma.kitchen.findFirst({
+        where: { slug: pending.slug },
+      });
+      if (existing) {
+        console.warn("Kitchen already exists:", pending.slug);
+        return new Response("Already exists", { status: 200 });
+      }
+
+      if (!session.subscription || !session.customer) {
+        console.error("Missing subscription/customer in session");
+        return new Response("Missing Stripe data", { status: 400 });
+      }
+
+      const kitchen = await prisma.kitchen.create({
         data: {
-          name: session.metadata!.name!,
-          slug: session.metadata!.slug!,
-          description: session.metadata!.description!,
-          customerId,
-          subscriptionId,
-          usageItemId: usageItem.id,
+          name: pending.name,
+          slug: pending.slug,
+          description: pending.description,
+          image: pending.image,
+          website: pending.website,
+          location: pending.location,
+          customerId: session.customer as string,
+          subscriptionId: session.subscription as string,
+          usageItemId: "not-used",
           lastBilledUsageBlock: 0,
           spendingLimit: 20,
           memberships: {
             create: {
-              uid: "TODO", // resolve from session.metadata or lookup by email
+              uid: pending.userId,
               role: "Owner",
             },
           },
         },
       });
+
+      await prisma.pendingKitchen.delete({ where: { id: pendingKitchenId } });
+      console.log("Kitchen created:", kitchen.id);
     }
 
     return new Response("ok", { status: 200 });

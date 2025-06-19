@@ -115,6 +115,7 @@ export async function startKitchenCheckout(
       metadata: {
         pendingKitchenId: pending.id,
       },
+      expand: ["subscription"],
     });
 
     // Needed for db querying in webhook to avoid duplicate kitchens etc.

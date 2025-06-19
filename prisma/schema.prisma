@@ -59,9 +59,9 @@ model Kitchen {
     // Stripe-based Billing
     customerId           String
     subscriptionId       String
-    usageItemId          String
-    lastBilledUsageBlock Int    @default(0)
-    spendingLimit        Float  @default(20.0)
+    usageItemId          String?
+    lastBilledUsageBlock Int     @default(0)
+    spendingLimit        Float   @default(20.0)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
